@@ -166,3 +166,10 @@ net.ipv4.conf.all.arp_ignore = 1
 net.ipv4.conf.all.arp_announce = 2
 EOF
 ```
+
+<br>
+
+----
+
+## D) Check the results
+![result](https://user-images.githubusercontent.com/42735894/177139535-806222ca-67f2-4c79-818e-365342e32711.PNG)
