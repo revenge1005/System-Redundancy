@@ -70,7 +70,7 @@ cat <<EOF >> /etc/ha.d/haresources
 
 # Write both lvs-01 and lvs-02 as lvs-01.
 lvs-01 IPaddr::192.168.219.100/24/ens32:0/192.168.219.255
-lvs-01 IPaddr::192.168.56.100/24/ens32:0/192.168.56.255
+lvs-01 IPaddr::192.168.56.100/24/ens34:0/192.168.56.255
 EOF
 ```
 
