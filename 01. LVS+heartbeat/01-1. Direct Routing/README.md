@@ -79,4 +79,90 @@ systemctl enable heartbeat
 systemctl start heartbeat
 ```
 
-## A) LVS-01, LVS-02 Node - LVS
+<br>
+
+----
+
+## B) LVS-01, LVS-02 Node - LVS Installation and setup 
+
+### B-1) ipvsadm Install
+```
+apt update 
+
+apt -y install ipvsadm
+```
+
+### B-2) IP forwarding Setup
+```
+sed -i "s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g" /etc/sysctl.conf
+sysctl -p
+```
+
+### B-3) ipvsadm Setup
+```
+ipvsadm -C
+ipvsadm -A -t 192.168.219.100:80 -s rr
+ipvsadm -a -t 192.168.219.100:80 -r 192.168.219.21:80 -g
+ipvsadm -a -t 192.168.219.100:80 -r 192.168.219.22:80 -g
+
+ipvsadm-save
+```
+
+### B-4) ipvsadm Save Settings Permanently
+```
+cat <<EOF > /etc/systemd/system/ipvs-config.service
+[Unit]
+Description=Configure IPVS
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ipvsadm -C
+ExecStart=/sbin/ipvsadm -A -t 192.168.219.100:80 -s rr
+ExecStart=/sbin/ipvsadm -a -t 192.168.219.100:80 -r 192.168.219.21:80 -g
+ExecStart=/sbin/ipvsadm -a -t 192.168.219.100:80 -r 192.168.219.22:80 -g
+ExecStart=/sbin/ipvsadm-save
+RemainAfterExit=false
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable ipvs-config
+```
+
+### B-5) ipvsadm Setup Check
+```
+ipvsadm -Ln --rate
+```
+
+<br>
+
+----
+
+## C) WEB-01, WEB-02 - Apache Installation and setup
+
+### C-1) Apache Install
+```
+apt update 
+
+apt -y install apache2
+```
+
+### C-2) Add Virtual Interface - Write both WEB-01 and WEB-02 as WEB-01.
+```
+ifconfig lo:0 192.168.219.100/24 up
+```
+
+### C-3) arp_ignore, arp_announce Setup
+```
+cat <<EOF >> /etc/sysctl.conf
+
+net.ipv4.conf.lo.arp_ignore = 1
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_ignore = 1
+net.ipv4.conf.all.arp_announce = 2
+EOF
+```
