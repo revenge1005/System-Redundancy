@@ -8,7 +8,7 @@
 ----
 
 ## 02. Setting up a LVS (Direct Routing) Cluster 
-![LVS+heartbeat(Direct Routing)](https://user-images.githubusercontent.com/42735894/177132859-718f60db-ae78-4a24-87f1-47572a87a80c.png)
+![LVS+heartbeat(Direct Routing)](https://user-images.githubusercontent.com/42735894/177301559-23bd546d-2b87-444f-bc82-efd76294e4cd.png)
 
 
 <br>
