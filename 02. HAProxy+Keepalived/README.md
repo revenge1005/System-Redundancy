@@ -11,7 +11,8 @@ apt-get install haproxy -y
 ```
 # net.ipv4.ip_nonlocal_bind 옵션은 프로그램이 시스템 상의 장치에 없는 주소로 Binding 할 수 있도록 할 수 있게하는 커널 파라미터
 # HAProxy 및 Keepalived의 로드밸런싱은 동시에 로컬이 아닌 IP 주소에 바인딩할 수 있어야 한다
-# 즉, 네트워크 인터페이스에 등록되지 않은 주소로 바인딩할 수 있도록 하는 커널 값이다. (네트워크 인터피에스가 지정된 정적 IP가 아닌 동적 IP를 바인딩할 수 있다.)
+# 즉, 네트워크 인터페이스에 등록되지 않은 주소로 바인딩할 수 있도록 하는 커널 값이다. 
+# (네트워크 인터피에스가 지정된 정적 IP가 아닌 동적 IP를 바인딩할 수 있다.)
 # 해당 옵션이 비활성화 되어 있어도 서비스가 시작하면서 인터페이스에 특정 IP를 바인딩할 수 있으나 장애극복(Failover)시 문제 발생
 
 
@@ -136,3 +137,6 @@ systemctl restart keepalived
 ### B-5) Check the result
 
 1) Failover
+![01](https://user-images.githubusercontent.com/42735894/177974884-b534a482-0a28-4c67-836e-0999aaa10146.PNG)
+![02](https://user-images.githubusercontent.com/42735894/177974905-f0b7627c-7379-494f-9a86-053222393a69.PNG)
+![03](https://user-images.githubusercontent.com/42735894/177974916-2d4b64a1-3a5a-4eb5-b79d-0e7e99eeff78.PNG)
