@@ -137,6 +137,11 @@ systemctl restart keepalived
 ### B-5) Check the result
 
 1) Failover
+
 ![01](https://user-images.githubusercontent.com/42735894/177974884-b534a482-0a28-4c67-836e-0999aaa10146.PNG)
 ![02](https://user-images.githubusercontent.com/42735894/177974905-f0b7627c-7379-494f-9a86-053222393a69.PNG)
 ![03](https://user-images.githubusercontent.com/42735894/177974916-2d4b64a1-3a5a-4eb5-b79d-0e7e99eeff78.PNG)
+
+2) Failback - 다시 LVS-01 서버 작동 시키면 기존의 Master가 복귀한 것을 확인할 수 있다
+
+![01](https://user-images.githubusercontent.com/42735894/177974884-b534a482-0a28-4c67-836e-0999aaa10146.PNG)
