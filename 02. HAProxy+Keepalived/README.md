@@ -133,6 +133,23 @@ EOF
 systemctl enable keepalived
 systemctl restart keepalived
 ```
+```
+root@lvs-01:~# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens32: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:bb:86:7a brd ff:ff:ff:ff:ff:ff
+    inet 192.168.219.11/24 brd 192.168.219.255 scope global ens32
+       valid_lft forever preferred_lft forever
+    inet 192.168.219.100/24 scope global secondary ens32
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:febb:867a/64 scope link
+       valid_lft forever preferred_lft forever
+```
 
 ### B-5) Check the result
 
