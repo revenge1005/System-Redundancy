@@ -2,7 +2,7 @@
 
 1-7-1. [keepalived](#1-7-1-keepalived)
 
-1-7-2. [IPVS 구성 (NAT)](#1-6-2-ipvs-구성-nat)
+1-7-2. [keepalived 설정](#1-7-2-keepalived-설정)
 
 <br>
 
@@ -28,13 +28,13 @@
 
 ### ⓑ VRRP (Virtual Router Redundancy Protocol)
 
-> + 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.
+> + 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.<br><br>
 >   - **Load Balancing(부하분산) :** 트래픽을 분산시켜 네트워크의 성능향상을 목표로 함 <br><br>
 >   - **고가용성(HA) :** 서비스를 중단 없이 지속적으로 제공하는 성질
 
 <br>
 
-> "VRRP는 주로 Failover를 목적으로 Master/Backup 장비간의 전환을 위해 사용"된다. 
+> VRRP는 주로 Failover를 목적으로 Master/Backup 장비간의 전환을 위해 사용된다. 
 
 <br>
 
@@ -63,9 +63,94 @@
 >   - VRRP Priority(우선순위) 값이 큰 장비
 >   - RIP의 주소가 큰 장비
 
+<br><br>
 
-> ### This is a H3
-> * List
->	```
->	code
->	```
+### ⓒ Keepalived 에서 제공하는 헬스체크
+
+> + TCP_CHECK : 비동기식으로 Time-Out TCP 요청을 통해 장애를 검출하는 방식 <br><br>
+> + HTTP_GET : HTTP GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
+> + SSL_GET : HTTPS GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
+> + MISC_CHECK : 특정 기능을 확인하는 스크립트를 실행하여 결과가 0인지 1인를 가지고 검출하는 방식
+
+<br>
+
+---
+
+<br>
+
+# 1-7-2. keepalived 설정
+
+<br>
+
+### ⓐ Keepalived 설치
+
+> ```
+> yum -y install keepalived
+> ```
+
+<br><br>
+
+### ⓑ Keepalived 설정 (lv1, lv2 노드 모두 설정)
+
+> ```
+> cat <<EOF >> /etc/keepalived/keepalived.conf
+> vrrp_instance VI_1 {
+>	    state MASTER
+>	    interface eth0
+>	    garp_master_delay 5
+>	    virtual_router_id 200
+>	    priority 101	# lv2는 100으로 변경할 것
+>	    advert_int 1
+>	    authentication {
+>	        auth_type PASS
+>	        auth_pass 1111
+>	    }
+>	    virtual_ipaddress {
+>	        10.0.0.100/24	dev  eth0
+>	        192.168.219.100/24	dev  eth1
+>	    }
+>	}
+>	EOF
+> ```
+
+<br><br>
+
+### ⓒ VRRP 인스턴스 분리
+
+> + 위 설정에서는 VRRP 패킷은 eth0으로만 전송되므로 eth1의 LAN 케이블을 빼더라도 이상 작동을 검출할 수 없다. <br><br>
+> + 여러 인터페이스에서 장애를 검출하고자 할 경우에는 인스턴스마다 VRRP 인스턴스를 정의할 필요가 있다. <br><br>
+> + VRRP 인스턴스는 virtual_router_id 파라미터에에 짜라 나뉘어지므로, 인스턴스마다 고유한 값을 지정하기 바란다. 
+> ```
+>  cat <<EOF >> /etc/keepalived/keepalived.conf
+>  vrrp_instance VE {
+>	    state MASTER
+>	    interface eth0
+>	    garp_master_delay 5
+>	    virtual_router_id 200	# VRRP 인스턴스마다 고유한 값
+>	    priority 101		# lv2는 100으로 변경할 것
+>	    advert_int 1
+>	    authentication {
+>	        auth_type PASS
+>	        auth_pass 1111
+>	    }
+>	    virtual_ipaddress {
+>	        10.0.0.100/24	dev  eth0
+>	    }
+>  }
+>  vrrp_instance VI {
+>	    state MASTER
+>	    interface eth0
+>	    garp_master_delay 5
+>	    virtual_router_id 200	# VRRP 인스턴스마다 고유한 값
+>	    priority 101		# lv2는 100으로 변경할 것
+>	    advert_int 1
+>	    authentication {
+>	        auth_type PASS
+>	        auth_pass 1111
+>	    }
+>	    virtual_ipaddress {
+>	        192.168.219.100/24	dev  eth1
+>	    }
+>  }
+>  EOF
+> ```
