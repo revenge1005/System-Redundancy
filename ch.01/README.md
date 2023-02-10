@@ -240,7 +240,7 @@ rr(round-robin)
 <!-- REMOVE THE BACKSLASHES -->
 wrr(weighted round-robin)
 </td>
-<td width="70%">
+<td width="73%">
 <!-- REMOVE THE BACKSLASHES -->
 rr과 같지만 가중치를 가미해서 분산비율을 변경한다. (가중치가 큰 쪽을 빈번히 선택함)
 </td>
@@ -317,7 +317,7 @@ lblc(locality-based least-connection)
 <td>
 <!-- REMOVE THE BACKSLASHES -->
 + 접속수가 가중치로 지정한 값을 넘기 전까지는 동일한 서버를 선택 <br>
-+ 모든 서버의 접속수가 가중치로 지정한 값을 넘고 있을 경우, 마지막에 선택된 서버가 계속 선택된다.
++ 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우, 마지막에 선택된 서버가 계속 선택
 </td>
 </tr>
 <tr>
@@ -327,7 +327,7 @@ lblc(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우는 접속수가 적은 서버로 선택됨
+lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우, 접속수가 적은 서버로 선택됨
 </td>
 </tr>
 </table>
