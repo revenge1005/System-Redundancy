@@ -21,9 +21,7 @@
 ### ⓑ VRRP (Virtual Router Redundancy Protocol)
 
 > 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.
-
 >    > Load Balancing(부하분산) 
-
 >    >  > 트래픽을 분산시켜 네트워크의 성능향상을 목표로 함
 
     + 고가용성(HA) 
