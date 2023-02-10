@@ -130,3 +130,145 @@ TCP 연결과 UDP Datagram을 Real Server에게 전달하기 위한 알고리즘
 
 + 호스트(A)에서 호스트(B)의 eth1 인터페이스로의 트래픽이 eth0 인터페이스에서 대신 처리된다.
 ```
+
+#### 【 ARP Flux 해결 - ARP Hidden 방식 】
+```
++ 패킷 전달 방식에 있어 NAT를 제외한 다른 방식은 모두 ARP Flux 문제를 해결해야 한다.
+
++ 기본적으로 Dispatcher와 Real Server 모두 VIP를 가지고 있기 때문에, 클라이언트가 VIP의 MAC 주소를 묻는 ARP 요청을 전송했을 때 
+
++ Dispatcher와 Real Server 모두 응답하게 되면 클라이언트는 이들 중 특정 서버의 MAC 주소를 해당 VIP에 해당하는 MAC 주소로 기억하고는 
+
++ 이 서버에게만 모든 서비스 요청을 전송한다.
+
++ 결국 부하분산을 더 이상 제공할 수 없으며, 임의의 클라이언트가 어떤 서버로부터 서비스를 제공받는지 관리할 수 없다.
+
++ 이를 해결하기 위해서는 클라이언트가 ARP 요청을 전송했을 때 Dispatcher만이 이에 응답하고, Real Server는 모두 ARP 요청을 무시해야 한다.
+```
+```
+echo 1 > /proc/sys/net/ipv4/conf/lo/arp_ignore
+echo 2 > /proc/sys/net/ipv4/conf/lo/arp_announce
+echo 1 > /proc/sys/net/ipv4/conf/all/arp_ignore
+echo 2 > /proc/sys/net/ipv4/conf/all/arp_announce
+```
+
+#### 【 VIP 및 RIP 설정 】
+```
++ Real Server는 고유의 IP 주소인 RIP(Real Server IP)를 갖고 있으며, Dispatcher는 RIP 주소를 기반으로 서비스 요청을 분산시킨다.
+
++ DR 방식의 특성상 클라이언의 요청은 Real Server에서 클라이언트로 직접 전달되므로 Real Server는 VIP 주소도 함께 lo 장치로 갖고 있어야 한다.
+```
+```
+ifconfig lo:0 <Virtual IP> netmask 255.255.255.255 up
+```
+
+#### 【 Routing Table 설정 】
+```
++ lo:0 장치에 VIP를 설정했으므로, 목적지가 VIP인 요청 메시지를 lo:0 장치로 전달해야 한다.
+```
+```
+route add -host <Virtual IP> dev lo:0
+```
+
+### ⓔ Real Server를 Virtual Service에 등록 (on Dispatcher Node)
+
+#### 【 Dispatcher를 Real Server로서 등록하기 】
+```
++ Dispatcher가 Real Server로서 Virtual Service를 제공하기 위해서는 클라이언트로부터 요청 메시지를 Local host로 전송할 수 있도록 등록해야 한다
+```
+```
+ipvsadm -a -t <Virtual IP>:80 -r 127.0.0.1 -g
+```
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+옵션
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+설명
+</small>
+</p>
+</th>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+-r 
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+Virtual Service에 등록할 Real Server의 IP주소 또는 호스트명으로서, 경우에 따라 Port 번호를 추가할 수 있다.
+<br>
+<br>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+Packet-forwarding-method 옵션
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+Dispatcher Node에 전달된 클라이언트의 요청 메시지를 Real Server에게 전달하기 위한 방식
+</small>
+</p>
+</th>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+-g 
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+Direct Routing
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+-i 
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+ Tunneling
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+-m
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+NAT
+<br>
+<br>
+</td>
+</tr>
+</table>
