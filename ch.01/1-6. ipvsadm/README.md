@@ -14,13 +14,13 @@
 ### ⓑ 동작 방식
 
 ```
-+ 클라이언트는 VIP로 서비스 요청을 하면 Dispatcher Node는 Real Server들 중 하나로 스케줄링 한다.
++ 클라이언트는 VIP로 서비스 요청을 하면 Dispatcher 노드는 Real Server들 중 하나로 스케줄링 한다.
 
 + 선택된 서버로 직접 라우팅해 클라이언트의 여청을 Real Server로 전달한다.
 
 + Real Server는 요청 사항을 처리한 후, Dispatcher Node를 거치지 않고 클라이언트로 직접 응답을 한다.
 
-+ 각 Real Server는 Dispatcher Node와 같은 가상 IP를 공유하고 있기 때문에 Dispatcher Node를 거치지 않고 클라이언트로 직접 응답할 수 있다.
++ 각 Real Server는 Dispatcher 노드와 같은 가상 IP를 공유하고 있기 때문에 Dispatcher 노드를 거치지 않고 클라이언트로 직접 응답할 수 있다
 ```
 
 ### ⓒ Dispatcher Node 설정

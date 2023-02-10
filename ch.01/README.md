@@ -10,7 +10,7 @@
 
 1-5. [동일 서브넷인 서버를 부하분산할 경우 주의사항](#1-5-동일-서브넷인-서버를-부하분산할-경우-주의사항)
 
-1-6. [(실습) ipvsadm]()
+1-6. [(실습) ipvsadm](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/1-6.%20ipvsadm)
 
 1-7. [(실습) keepalived]()
 
