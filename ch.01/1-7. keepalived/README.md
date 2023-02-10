@@ -18,6 +18,8 @@
 
 > VRRP을 사용한 고가용성(HA) 제공함
 
+<br><br>
+
 ### ⓑ VRRP (Virtual Router Redundancy Protocol)
 
 > 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.
