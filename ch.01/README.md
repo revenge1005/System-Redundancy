@@ -303,7 +303,6 @@ sed(shortest expected delay)
 <br>
 + wlc와 동일한 동작하지만 wlc에서는 ESTABLISHED 이외의 상태인 접속수를 더하는 점이 다름 <br>
 <br>
-<br>
 </td>
 </tr>
 <tr>
