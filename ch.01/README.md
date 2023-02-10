@@ -312,7 +312,7 @@ dh(destination hashing)
 <tr>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-lblc(locality-based least-connection)
+lblc<br>(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
