@@ -269,23 +269,14 @@ ipvsadm -Ln
 
 ### ⓐ NAT 구성 개요
 
-NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
++ NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
 
 ### ⓑ 동작 방식
-```
-클라이언트에게는 Dispatcher의 도메인 네임 또는 IP가 알려져 있고, Client가 이 알려진 도메인 네임이나 IP를 사용해 Dispatcher에게 서비스 요청 패킷을 전송한다
-
-또한 Dispatcher Nodes는 N개의 Real Server 중 하나를 정해진 스케줄링 방법에 의해 선택한 후 패킷 내의 목적지 주소를 해당 서버의 IP로 다시 작성한다
-
-Real Server는 클라이언트의 요청을 처리한 후, Dispatcher Node에게 응답을 돌려주고 이때 Dispatcher Node는 실제 응답의 발신자 주소를 다시 자신의 IP로 변경한 후 클라이언트에 서비스를 제공한다
-```
-
-
 <table>
 <tr>
 <td width="100%">
 <!-- REMOVE THE BACKSLASHES -->
-클라이언트에게는 Dispatcher Node의 도메인 네임 또는 IP가 알려져 있고, 클라이언트가 이 알려진 도메인 네임이나 IP를 사용해 Dispatcher Node에게 서비스 요청 패킷을 전송한다
+클라이언트에게는 Dispatcher Node의 도메인 네임 또는 IP가 알려져 있고, 클라이언트가 이 알려진 도메인 네임이나 IP를 사용해 Dispatcher 에게 서비스 요청 패킷을 전송한다
 <br><br>
 또한 Dispatcher는 N개의 Real Server 중 하나를 정해진 스케줄링 방법에 의해 선택한 후 패킷 내의 목적지 주소를 해당 서버의 IP로 다시 작성한다
 <br><br>
