@@ -12,7 +12,7 @@
 
 1-6. [(실습) ipvsadm](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/1-6.%20ipvsadm)
 
-1-7. [(실습) keepalived]()
+1-7. [(실습) keepalived](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/1-7.%20keepalived)
 
 1-8. [(실습) LVS+heartbeat 구성](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/01.%20LVS%2Bheartbeat)
 
