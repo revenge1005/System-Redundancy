@@ -10,13 +10,13 @@
 
 1-5. [동일 서브넷인 서버를 부하분산할 경우 주의사항](#1-5-동일-서브넷인-서버를-부하분산할-경우-주의사항)
 
-1-6. [ipvsadm]()
+1-6. [(실습) ipvsadm]()
 
-1-7. [keepalived]()
+1-7. [(실습) keepalived]()
 
-1-8. [LVS+heartbeat 구성](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/01.%20LVS%2Bheartbeat)
+1-8. [(실습) LVS+heartbeat 구성](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/01.%20LVS%2Bheartbeat)
 
-1-9. [HAProxy+Keepalived](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/02.%20HAProxy%2BKeepalived)
+1-9. [(실습) HAProxy+Keepalived](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/02.%20HAProxy%2BKeepalived)
 
 ---
 
