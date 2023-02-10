@@ -236,11 +236,11 @@ rr(round-robin)
 </td>
 </tr>
 <tr>
-<td width="100%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 wrr(weighted round-robin)
 </td>
-<td>
+<td width="100%">
 <!-- REMOVE THE BACKSLASHES -->
 rr과 같지만 가중치를 가미해서 분산비율을 변경한다. (가중치가 큰 쪽을 빈번히 선택함)
 </td>
