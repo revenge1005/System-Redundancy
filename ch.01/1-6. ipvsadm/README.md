@@ -18,7 +18,7 @@
 
 > Real Server는 요청 사항을 처리한 후, Dispatcher Node를 거치지 않고 클라이언트로 직접 응답을 한다.
 
-> 각 Real Server는 Dispatcher 노드와 같은 가상 IP를 공유하고 있기 때문에 Dispatcher 노드를 거치지 않고 클라이언트로 직접 응답할 수 있다
+> 각 Real Server는 Dispatcher와 같은 가상 IP를 공유하고 있기 때문에 Dispatcher 노드를 거치지 않고 클라이언트로 직접 응답할 수 있다
 
 
 ### ⓒ Dispatcher Node 설정
