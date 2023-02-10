@@ -262,7 +262,7 @@ ipvsadm -Ln
 
 ### ⓐ NAT 구성 개요
 
-+ NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
+> NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
 
 ### ⓑ 동작 방식
 
@@ -271,3 +271,32 @@ ipvsadm -Ln
 > 또한 Dispatcher는 N개의 Real Server 중 하나를 정해진 스케줄링 방법에 의해 선택한 후 패킷 내의 목적지 주소를 해당 서버의 IP로 다시 작성한다. 
 
 > Real Server는 클라이언트의 요청을 처리한 후, Dispatcher에게 응답을 돌려주고 이때 Dispatcher Node는 실제 응답의 발신자 주소를 다시 자신의 IP로 변경한 후 클라이언트에 서비스를 제공한다.
+
+### ⓒ Dispatcher Node 설정
+
+#### 【 VIP 】
+```
+ifconfig eth0:1 <Virtual IP> netmask 255.255.255.0 up
+```
+
+#### 【 Packet Forwarding 활성화 】
+```
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
+#### 【 Virtual Service 등록 (ipvsadm 설정) 】
+```
+ipvsadm -A -t <Virtula IP>:80 -s rr
+```
+
+### ⓓ 【 Real Server를 Virtual Service에 등록 (on Dispatcher Node) 】
+
+#### 【 Real Server 등록하기 】
+```
+ipvsadm -a -t <VIP>:80 -r <RIP> -g
+```
+
+#### 【 Real Server 등록하기 】
+```
+ipvsadm -Ln	
+```
