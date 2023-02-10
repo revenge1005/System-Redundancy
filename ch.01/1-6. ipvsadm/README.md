@@ -199,7 +199,7 @@ ipvsadm -a -t <Virtual IP>:80 -r 127.0.0.1 -g
 </th>
 </tr>
 <tr>
-<td>
+<td width="80%">
 <!-- REMOVE THE BACKSLASHES -->
 -r 
 </td>
