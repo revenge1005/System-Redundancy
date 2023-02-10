@@ -233,8 +233,8 @@
 </p>
 </th>
 </tr>
-<tr>
-<td width="200" height="1">
+<tr width="200">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 rr(round-robin)
 </td>
