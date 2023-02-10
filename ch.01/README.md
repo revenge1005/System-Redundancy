@@ -316,7 +316,7 @@ lblc(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-+ 접속수가 가중치로 지정한 값을 넘기 전까지는 동일한 서버를 선택
++ 접속수가 가중치로 지정한 값을 넘기 전까지는 동일한 서버를 선택 <br>
 + 모든 서버의 접속수가 가중치로 지정한 값을 넘고 있을 경우, 마지막에 선택된 서버가 계속 선택된다.
 </td>
 </tr>
@@ -327,7 +327,7 @@ lblc(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-+ lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우는 접속수가 적은 서버로 선택됨
+lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우는 접속수가 적은 서버로 선택됨
 </td>
 </tr>
 </table>
