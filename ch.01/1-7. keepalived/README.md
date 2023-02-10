@@ -4,9 +4,15 @@
 
 1-7-2. [IPVS 구성 (NAT)](#1-6-2-ipvs-구성-nat)
 
+<br>
+
 ---
 
+<br>
+
 # 1-7-1. keepalived
+
+<br>
 
 ### ⓐ Keepalived
 
@@ -40,3 +46,18 @@
 >    >  > 이중화 그룹을 대표하는 가상의 인터페이스를 생성하고 게이트웨이 IP(VIP)를 할당
 >    >  > 이중화 그룹에서 Master/Backup 장비를 결정하고 Master 장비는 라우팅 기능을 제공함과 동시에 VRRP Advertisement 패킷을 반복적으로 전송함으로써 Backup 장비에게 알림
 >    >  > 이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지
+
+>    > **② Master 장비에 장애가 발생해 Backup 장비에게 VRRP Advertisement 패킷을 수신하지 못하면, Backup 장비들은 서로 VRRP Advertisement 패킷과 GARP 패킷을 교환하여 우선 순위에 따라 새로운 Master 장비를 선정
+>    >  > + GARP는 자신의 IP에게 ARP 요청을 보내는 것으로 동일 서브넷 상에 존재하는 장비의 ARP Table을 갱신할 수 있다.
+>    >  > + 여기서 Backup과 연결된 스위치나 라우터로 GARP 패킷을 통해 ARP Table을 갱신해 Backup 장비가 VIP를 소유하게 되었음을 알릴 수 있다.
+
+<br><br>
+
+### ⓒ Master/Backup 선출 기준
+
+> VIP와 RIP가 같은 장비
+
+> VRRP Priority(우선순위) 값이 큰 장비
+
+> RIP의 주소가 큰 장비
+
