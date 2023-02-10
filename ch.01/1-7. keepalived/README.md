@@ -24,7 +24,7 @@
 
 > VRRP을 사용한 고가용성(HA) 제공함
 
-<br><br>
+<br>
 
 ### ⓑ VRRP (Virtual Router Redundancy Protocol)
 
@@ -63,7 +63,7 @@
 >   - VRRP Priority(우선순위) 값이 큰 장비
 >   - RIP의 주소가 큰 장비
 
-<br><br>
+<br>
 
 ### ⓒ Keepalived 에서 제공하는 헬스체크
 
@@ -88,7 +88,7 @@
 > yum -y install keepalived
 > ```
 
-<br><br>
+<br>
 
 ### ⓑ Keepalived 설정 (lv1, lv2 노드 모두 설정)
 
@@ -113,7 +113,7 @@
 >	EOF
 > ```
 
-<br><br>
+<br>
 
 ### ⓒ VRRP 인스턴스 분리
 
