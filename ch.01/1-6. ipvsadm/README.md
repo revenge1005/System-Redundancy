@@ -211,27 +211,6 @@ Virtual Service에 등록할 Real Server의 IP주소 또는 호스트명으로�
 <br>
 </td>
 </tr>
-</table>
-
-<table>
-<tr>
-<th align="center">
-<img width="441" height="1">
-<p> 
-<small>
-Packet-forwarding-method 옵션
-</small>
-</p>
-</th>
-<th align="center">
-<img width="441" height="1">
-<p> 
-<small>
-Dispatcher Node에 전달된 클라이언트의 요청 메시지를 Real Server에게 전달하기 위한 방식
-</small>
-</p>
-</th>
-</tr>
 <tr>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
