@@ -272,6 +272,10 @@ ipvsadm -Ln
 + NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
 
 ### ⓑ 동작 방식
+```
+클라이언트에게는 Dispatcher Node의 도메인 네임 또는 IP가 알려져 있고, 클라이언트가 이 알려진 도메인 네임이나 IP를 사용해 <br>
+Dispatcher 에게 서비스 요청 패킷을 전송한다
+```
 <table>
 <tr>
 <td width="100%">
