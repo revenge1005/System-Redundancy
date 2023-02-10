@@ -6,7 +6,6 @@
 
 ---
 
-
 # 1-6-1. IPVS 구성 (Direct Routing)
 
 ### ⓐ DR 구성 개요
