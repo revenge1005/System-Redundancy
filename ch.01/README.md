@@ -236,7 +236,7 @@ rr(round-robin)
 </td>
 </tr>
 <tr>
-<td>
+<td width="100%">
 <!-- REMOVE THE BACKSLASHES -->
 wrr(weighted round-robin)
 </td>
