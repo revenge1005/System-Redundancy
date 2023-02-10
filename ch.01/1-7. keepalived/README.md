@@ -4,6 +4,12 @@
 
 1-7-2. [keepalived 설정](#1-7-2-keepalived-설정)
 
+## Guide
+
++ https://keepalived.readthedocs.io/en/latest/
+
++ https://fossies.org/linux/keepalived/doc/man/man5/keepalived.conf.5
+
 <br>
 
 ---
