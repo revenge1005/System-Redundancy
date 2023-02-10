@@ -283,7 +283,7 @@ Real Server는 클라이언트의 요청을 처리한 후, Dispatcher Node에게
 <table>
 <tr>
 <th align="center">
-<img width="441" height="1">
+<img width="100%" height="1">
 <p> 
 <small>
 옵션
