@@ -18,7 +18,11 @@
 
 1-9. [(실습) HAProxy+Keepalived](https://github.com/revenge1005/System-Redundancy/tree/master/ch.01/02.%20HAProxy%2BKeepalived)
 
+<br>
+
 ---
+
+<br>
 
 # 1-1. 다중화
 
