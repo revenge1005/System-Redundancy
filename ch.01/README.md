@@ -234,14 +234,15 @@
 </th>
 </tr>
 <tr>
-<img width="441" height="1">
 <td>
 <!-- REMOVE THE BACKSLASHES -->
 rr(round-robin)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 리얼 서버를 처음부터 차례로 선택하여 모든 서버로 균등하게 처리가 분산된다.
+<br>
 </td>
 </tr>
 <tr>
@@ -251,7 +252,9 @@ wrr(weighted round-robin)
 </td>
 <td width="70%">
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 rr과 같지만 가중치를 가미해서 분산비율을 변경한다. (가중치가 큰 쪽을 빈번히 선택함)
+<br>
 </td>
 </tr>
 <tr>
@@ -261,7 +264,9 @@ lc(least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 접속수가 가장 적은 서버를 선택 (어떤 것을 사용하면 좋을지 모를 경우에 사용해도 좋다)
+<br>
 </td>
 </tr>
 <tr>
@@ -271,9 +276,11 @@ wlc(weighted least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 + lc와 같지만 가중치를 가미해서 분산비율을 변경한다. <br>
 + 『(접속수+1)/가중치』가 최소가 되는 서버를 선택 <br>
 + 고성능 서버는 가중치를 크게 하는 것이 좋음
+<br>
 </td>
 </tr>
 <tr>
@@ -283,9 +290,11 @@ sed(shortest expected delay)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 + 가장 응답속도가 빠른 서버를 선택 <br>
 + 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수가 적은 서버를 선택 <br>
 + wlc와 동일한 동작하지만 wlc에서는 ESTABLISHED 이외의 상태인 접속수를 더하는 점이 다름 <br>
+<br>
 </td>
 </tr>
 <tr>
@@ -295,7 +304,9 @@ nq(naver queue)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 sed와 동일한 알고리즘이지만 active 접속수가 0인 서버를 최우선으로 선택
+<br>
 </td>
 </tr>
 <tr>
@@ -305,7 +316,9 @@ sh(source hashing)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 소스 IP주소로부터 해시값을 계산해서 분산대상 리얼서버를 선택
+<br>
 </td>
 </tr>
 <tr>
@@ -315,7 +328,9 @@ dh(destination hashing)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 목적지 IP주소로부터 해시값을 계산해서 분산대상 리얼서버를 선택
+<br>
 </td>
 </tr>
 <tr>
@@ -325,8 +340,10 @@ lblc<br>(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 + 접속수가 가중치로 지정한 값을 넘기 전까지는 동일한 서버를 선택 <br>
 + 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우, 마지막에 선택된 서버가 계속 선택
+<br>
 </td>
 </tr>
 <tr>
@@ -336,7 +353,9 @@ lblc<br>(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
+<br>
 lblc와 동일하며 접속수가 적은 서버로 선택됨
+<br>
 </td>
 </tr>
 </table>
