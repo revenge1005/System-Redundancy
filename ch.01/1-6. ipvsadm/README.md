@@ -174,7 +174,7 @@ route add -host <Virtual IP> dev lo:0
 
 #### 【 Dispatcher를 Real Server로서 등록하기 】
 ```
-+ Dispatcher가 Real Server로서 Virtual Service를 제공하기 위해서는 클라이언트로부터 요청 메시지를 Local host로 전송할 수 있도록 등록해야 한다
+Dispatcher가 Real Server로서 Virtual Service를 제공하기 위해서는 Client로부터 요청 메시지를 Local host로 전송할 수 있도록 등록해야 함
 ```
 ```
 ipvsadm -a -t <Virtual IP>:80 -r 127.0.0.1 -g
