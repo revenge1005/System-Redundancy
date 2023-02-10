@@ -1,5 +1,13 @@
+## 목차
+
+1-6-1. [IPVS 구성 (Direct Routing)](#1-6-1-ipvs-구성-direct-routing)
+
+1-6-2. [IPVS 구성 (NAT)](#1-6-2-ipvs-구성-nat)
+
+---
+
+
 # 1-6-1. IPVS 구성 (Direct Routing)
-<br>
 
 ### ⓐ DR 구성 개요
 
@@ -252,7 +260,6 @@ ipvsadm -Ln
 ---
 
 # 1-6-2. IPVS 구성 (NAT)
-<br>
 
 ### ⓐ NAT 구성 개요
 
