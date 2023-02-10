@@ -262,7 +262,7 @@ wlc(weighted least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-+ lc와 같지만 가중치를 가미해서 분산비율을 변경한다. 
++ lc와 같지만 가중치를 가미해서 분산비율을 변경한다. <br>
 + 『(접속수+1)/가중치』가 최소가 되는 서버를 선택, 고성능 서버는 가중치를 크게 하는 것이 좋음
 </td>
 </tr>
@@ -273,9 +273,9 @@ sed(shortest expected delay)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-+ 가장 응답속도가 빠른 서버를 선택
-+ 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수(active 접속수)가 적은 서버를 선택하는 것일 뿐이다
-+ wlc와 동일하게 동작하지만 wlc에서는 ESTABLISHED 이외의 상태(TIME_WAIT, FIN_WAIT 등)인 접속수를 더하는 점이 다름
++ 가장 응답속도가 빠른 서버를 선택 <br>
++ 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수(active 접속수)가 적은 서버를 선택하는 것일 뿐이다 <br>
++ wlc와 동일하게 동작하지만 wlc에서는 ESTABLISHED 이외의 상태(TIME_WAIT, FIN_WAIT 등)인 접속수를 더하는 점이 다름 <br>
 </td>
 </tr>
 </table>
