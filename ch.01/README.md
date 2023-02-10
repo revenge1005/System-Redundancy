@@ -204,3 +204,81 @@
 
 + L4 스위치와 L7 스위치의 특징을 단적으로 정리하면 유연한 설정을 하고자 하면 L7 스위치, 성능을 추구하면 L4 스위치를 사용한다.
 ```
+
+### ⓕ 스케줄링 알고리즘
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+항목 
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+설명
+</small>
+</p>
+</th>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+rr(round-robin)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+리얼 서버를 처음부터 차례로 선택하여 모든 서버로 균등하게 처리가 분산된다.
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+wrr(weighted round-robin)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+rr과 같지만 가중치를 가미해서 분산비율을 변경한다. (가중치가 큰 쪽을 빈번히 선택함)
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+lc(least-connection)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+접속수가 가장 적은 서버를 선택 (어떤 것을 사용하면 좋을지 모를 경우에 사용해도 좋다)
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+wlc(weighted least-connection)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
++ lc와 같지만 가중치를 가미해서 분산비율을 변경한다. 
++ 『(접속수+1)/가중치』가 최소가 되는 서버를 선택, 고성능 서버는 가중치를 크게 하는 것이 좋음
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+sed(shortest expected delay)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
++ 가장 응답속도가 빠른 서버를 선택
++ 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수(active 접속수)가 적은 서버를 선택하는 것일 뿐이다
++ wlc와 동일하게 동작하지만 wlc에서는 ESTABLISHED 이외의 상태(TIME_WAIT, FIN_WAIT 등)인 접속수를 더하는 점이 다름
+</td>
+</tr>
+</table>
+---
+
+# 1-4. L4 스위치의 NAT 구성과 DSR 구성
