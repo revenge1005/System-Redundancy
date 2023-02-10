@@ -251,3 +251,13 @@ NAT
 </td>
 </tr>
 </table>
+
+#### 【 Real Server 등록하기 】
+```
+ipvsadm -a -t <Virtual IP>:80 -r <Virtual IP> -g
+```
+
+#### 【 설정 확인 】
+```
+ipvsadm -Ln
+```
