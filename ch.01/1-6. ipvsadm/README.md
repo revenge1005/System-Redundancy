@@ -282,7 +282,7 @@ Real Server는 클라이언트의 요청을 처리한 후, Dispatcher Node에게
 
 <table>
 <tr>
-<td width="100%">
+<td width="90%">
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 Virtual Service에 등록할 Real Server의 IP주소 또는 호스트명으로서, 경우에 따라 Port 번호를 추가할 수 있다.
