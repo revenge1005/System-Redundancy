@@ -45,7 +45,7 @@
 >    > **② VRRP 동작 방식**
 >    >  > 이중화 그룹을 대표하는 가상의 인터페이스를 생성하고 게이트웨이 IP(VIP)를 할당 <br><br>
 >    >  > 이중화 그룹에서 Master/Backup 장비를 결정하고 Master 장비는 라우팅 기능을 제공함과 동시에 VRRP Advertisement 패킷을 반복적으로 전송함으로써 Backup 장비에게 알림
->    >  > 이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지 <br><br>
+>    >  >   > + 이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지 <br><br>
 >    >  > Master 장비에 장애가 발생해 Backup 장비에게 VRRP Advertisement 패킷을 수신하지 못하면, Backup 장비들은 서로 VRRP Advertisement 패킷과 GARP 패킷을 교환하여 우선 순위에 따라 새로운 Master 장비를 선정 <br><br>
 >    >  >   > + GARP는 자신의 IP에게 ARP 요청을 보내는 것으로 동일 서브넷 상에 존재하는 장비의 ARP Table을 갱신할 수 있다. <br><br>
 >    >  >   > + 여기서 Backup과 연결된 스위치나 라우터로 GARP 패킷을 통해 ARP Table을 갱신해 Backup 장비가 VIP를 소유하게 되었음을 알릴 수 있다.
