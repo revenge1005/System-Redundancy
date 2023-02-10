@@ -279,6 +279,57 @@ sed(shortest expected delay)
 + wlc와 동일한 동작하지만 wlc에서는 ESTABLISHED 이외의 상태인 접속수를 더하는 점이 다름 <br>
 </td>
 </tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+nq(naver queue)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+sed와 동일한 알고리즘이지만 active 접속수가 0인 서버를 최우선으로 선택
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+sh(source hashing)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+소스 IP주소로부터 해시값을 계산해서 분산대상 리얼서버를 선택
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+dh(destination hashing)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+목적지 IP주소로부터 해시값을 계산해서 분산대상 리얼서버를 선택
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+lblc(locality-based least-connection)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
++ 접속수가 가중치로 지정한 값을 넘기 전까지는 동일한 서버를 선택
++ 모든 서버의 접속수가 가중치로 지정한 값을 넘고 있을 경우, 마지막에 선택된 서버가 계속 선택된다.
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+ lblcr(lblc replication)
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
++ lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우는 접속수가 적은 서버로 선택됨
+</td>
+</tr>
 </table>
 ---
 
