@@ -154,9 +154,9 @@ echo 2 > /proc/sys/net/ipv4/conf/all/arp_announce
 
 #### 【 VIP 및 RIP 설정 】
 ```
-+ Real Server는 고유의 IP 주소인 RIP(Real Server IP)를 갖고 있으며, Dispatcher는 RIP 주소를 기반으로 서비스 요청을 분산시킨다.
++ Real Server는 고유의 IP 주소인 RIP(Real Server IP)를 갖고 있으며, Dispatcher는 RIP 주소를 기반으로 서비스 요청을 분산시킨다
 
-+ DR 방식의 특성상 클라이언의 요청은 Real Server에서 클라이언트로 직접 전달되므로 Real Server는 VIP 주소도 함께 lo 장치로 갖고 있어야 한다.
++ DR 방식의 특성상 Client의 요청은 Real Server에서 클라이언트로 직접 전달되므로 Real Server는 VIP 주소도 함께 lo 장치로 갖고 있어야 한다
 ```
 ```
 ifconfig lo:0 <Virtual IP> netmask 255.255.255.255 up
