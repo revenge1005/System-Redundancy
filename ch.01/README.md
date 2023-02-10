@@ -234,7 +234,7 @@
 </th>
 </tr>
 <tr>
-<td>
+<td width="200" height="1">
 <!-- REMOVE THE BACKSLASHES -->
 rr(round-robin)
 </td>
