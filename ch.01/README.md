@@ -335,7 +335,7 @@ lblc<br>(locality-based least-connection)
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-lblc와 동일하며 모든 서버의 접속수가 가중치로 지정한 값을 넘을 경우, 접속수가 적은 서버로 선택됨
+lblc와 동일하며 접속수가 적은 서버로 선택됨
 </td>
 </tr>
 </table>
