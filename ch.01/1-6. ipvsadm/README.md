@@ -199,13 +199,13 @@ ipvsadm -a -t <Virtual IP>:80 -r 127.0.0.1 -g
 </th>
 </tr>
 <tr>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 -r 
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
+<br width="80%">
 Virtual Service에 등록할 Real Server의 IP주소 또는 호스트명으로서, 경우에 따라 Port 번호를 추가할 수 있다.
 <br>
 <br>
