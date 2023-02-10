@@ -47,7 +47,7 @@ Dispatcher는 클라이언트로부터 전송된 요청 메시지를 Real Server
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
-#### 【 Virtual Service 등록 (ipvsadm 설정)화 】
+#### 【 Virtual Service 등록 (ipvsadm 설정) 】
 ```
 yum -y install ipvsadm
 ```
@@ -113,3 +113,20 @@ TCP 연결과 UDP Datagram을 Real Server에게 전달하기 위한 알고리즘
 </td>
 </tr>
 </table>
+
+### ⓓ Real Server 설정
+
+```
+실제 클라이언트에게 서비스를 제공하는 노드로서, Dispatcher Node로부터 전달된 요청을 처리한 뒤 바로 클라이언트에게 응답을 전송한다.
+```
+
+#### 【 ARP Flux 문제 】
+```
++ 동일한 서브넷에 있는 두 개의 인터페이스를 가진 호스트가 동일한 서브넷의 인터페이스에 대한 ARP 요청에 동일한 서브넷의 모든 인터페이스에서 응답할 때 발생하는 문제
+
++ 호스트(A), eth0(A.A.A10) / 호스트(B), eth0(A.A.A.20), eth1(A.A.A.30)가 있고, 
+
++ 호스트(A)와 호스트(B) 사이에서 통신할 때 방화벽 등의 이유로 호스트(B)의 eth1 인터페이스를 거쳐야 한다고 가정할 때
+
++ 호스트(A)에서 호스트(B)의 eth1 인터페이스로의 트래픽이 eth0 인터페이스에서 대신 처리된다.
+```
