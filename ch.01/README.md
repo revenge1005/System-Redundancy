@@ -274,8 +274,8 @@ sed(shortest expected delay)
 <td>
 <!-- REMOVE THE BACKSLASHES -->
 + 가장 응답속도가 빠른 서버를 선택 <br>
-+ 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수(active 접속수)가 적은 서버를 선택하는 것일 뿐이다 <br>
-+ wlc와 동일하게 동작하지만 wlc에서는 ESTABLISHED 이외의 상태(TIME_WAIT, FIN_WAIT 등)인 접속수를 더하는 점이 다름 <br>
++ 서버와의 응답시간을 계측하는 것이 아닌 ESTABLISHED 상태인 접속수가 적은 서버를 선택하는 것일 뿐이다 <br>
++ wlc와 동일하게 동작하지만 wlc에서는 ESTABLISHED 이외의 상태인 접속수를 더하는 점이 다름 <br>
 </td>
 </tr>
 </table>
