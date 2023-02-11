@@ -155,6 +155,8 @@
 + Nginx / Apache Traffic Server
 + Varnish Cache
 
+<br>
+
 ## ⓑ Squid 캐시서버
 + Squid는 HTTP, HTTPS, FTP 등에서 이용되는 오픈소스 캐시 프록시 서버
 
