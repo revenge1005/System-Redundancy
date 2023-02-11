@@ -120,6 +120,8 @@ TCP 연결과 UDP Datagram을 Real Server에게 전달하기 위한 알고리즘
 </tr>
 </table>
 
+<br>
+
 ## ⓓ Real Server 설정
 
 > 실제 Client에게 서비스를 제공하는 노드로서, Dispatcher Node로부터 전달된 요청을 처리한 뒤 바로 클라이언트에게 응답을 전송한다.
@@ -268,6 +270,8 @@ ipvsadm -Ln
 
 > NAT 방식은 패킷 내의 IP 주소를 변경해 부하분산을 수행하는 방법
 
+<br>
+
 ## ⓑ 동작 방식
 
 1. 클라이언트에게는 Dispatcher의 도메인 네임 또는 IP가 알려져 있고, 클라이언트가 이 알려진 도메인 네임이나 IP를 사용해 Dispatcher에게 서비스 요청 패킷을 전송한다. 
@@ -275,6 +279,8 @@ ipvsadm -Ln
 2. 또한 Dispatcher는 N개의 Real Server 중 하나를 정해진 스케줄링 방법에 의해 선택한 후 패킷 내의 목적지 주소를 해당 서버의 IP로 다시 작성한다. 
 
 3. Real Server는 클라이언트의 요청을 처리한 후, Dispatcher에게 응답을 돌려주고 이때 Dispatcher Node는 실제 응답의 발신자 주소를 다시 자신의 IP로 변경한 후 클라이언트에 서비스를 제공한다.
+
+<br>
 
 ## ⓒ Dispatcher Node 설정
 
