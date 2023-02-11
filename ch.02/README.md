@@ -6,6 +6,8 @@
 
 2-3. [MySQL 리플리케이션](#2-3-mysql-리플리케이션)
 
+2-4. []
+
 <br>
 
 ---
@@ -341,3 +343,69 @@ log-slave-updates               # (6)
 GRANT REPLICATION SLAVE ON *.* TO repl@'192.168.219.0/255.255.255.0' INETIFIED BY '1234';
 ```
 
+<br>
+
+#### 【 리플리케이션 시작시에 필요한 데이터 】
+> 슬레이브를 새로 추가한 경우나 고장난 슬레이브를 대채해서 투입할 경우 슬레이브의 초기 데이터는, **마스터의 풀덤프만이 아니라 해당 풀덤프가 마스터의 바이너리 로그에서 어느 시점의 것인지 하는 포지션 정보도 필요하다.**
+
++ 편의상, **"풀덤프 + 포지션 정보" 묶음을 여기서는 "스냅샷"**이라고 하자 그러면 스냅샷을 얻기 위해서는 마스터의 mysqld를 정지한 후, MySQL 데이터 디렉터리를 복사하거나 마스터의 바이너리 파일의 이름을 메모해둔다.
+
+    - [x] 예를 들면, 파일명이 "mysql-bin.000002"인 경우는 mysqld를 실행시에 바이너리 로그는 다음 번호의 로그파일로 변경되므로, 포지션 정보는 "mysql-bin.000003"의 최초가 된다. <br><br>
+
+    - [x] mysqld를 정지할 수 없을 경우에는 갱신 관련된 쿼리를 막아놓은 상태로 만든 다음에 풀덤프를 하고, SHOW MASTER STATUS의 결과를 메모해두면 된다.
+
+<br>
+
+## ⓓ 리플리케이션 시작
+
+<br>
+
+#### 【 Master 서버 - DB 생성 】
+```
+mysql> create database repl_db default character set utf8;
+```
+
+<br>
+
+#### 【 Slave 서버 】
+
++ **my.cnf 설정**
+
+    - [x] 복제하고자 하는 데이터베이스를 의미하며 2개이상의 데이터베이스를 할경우 replicate-do-db를 추가로 작성하면 된다.
+
+```
+server-id=2
+replicate-do-db='repl_db'
+```
+
+<br>
+
++ **Master 서버로 연결하기 위한 설정**
+
+```
+change master to
+master_host='192.168.219.148',
+master_user='repl',
+master_password='1234',
+master_log_file='mysql-bin.000010',
+master_log_pos=1487;
+
+SLAVE START
+```
+
+<br>
+
++ **my.cnf 파일에 Slave 서버 설정 후 재시작**
+
+```
+[mysqld]
+replicate-do-db='repl_db'
+master-host=192.168.219.148
+master-user=repl
+master-password=1234
+master-port=3306
+server-id=2
+```
+```
+service mysqld restart
+```
