@@ -135,10 +135,10 @@
 
 #### 【 캐시 종류 】
 
-+ **Private Cache**
++ **Private Cache** <br><br>
     - [x] 웹 브라우저에 저장디는 캐시이며, 다른 사람이 접근할 수 없다. <br><br>
     - [x] 단, 서버 응답에 Autorization 헤더가 포함되어 있다면 Private Cache에 저장되지 않는다.<br><br>
-+ **Shared Cache**
++ **Shared Cache** <br><br>
     - [x] Shared Cache는 웹 브라우저와 서버 사이에서 동작하는 캐시를 의미하며, 2가지로 나뉜다.<br><br>
         + **Prxoy Cache :** 포워드 프록시에서 동작하는 캐시 <br><br>
         + **Managed Cache :** CDN 서비스 그리고 리버스 프록시에서 동작하는 캐시
@@ -155,6 +155,7 @@
 
 ## ⓑ Squid 캐시서버
 + Squid는 HTTP, HTTPS, FTP 등에서 이용되는 오픈소스 캐시 프록시 서버
+
 + Squid는 HTTP 프로토콜의 캐시기능을 전제로 한 캐시서버로, 따라서 HTML, CSS, Javascript 등의 정적인 컨텐츠를 캐싱할 때 사용된다.
 
 <br>
@@ -169,23 +170,35 @@
                     192.168.0.151
 ```
 ```
-http_port 80 	# Squid를 80번 포트에 바인드
-cache_peer 192.168.0.100 parent 80 no-query originserver	# 원본 서버는 백엔드 서버
-cache_peer 192.168.0.151 sibling 80 3130                    # 형제(sibling) Squid는 192.168.0.151에 있고, 포트 3130으로 송수신함
+# Squid를 80번 포트에 바인드
+http_port 80 	
+
+# 원본 서버는 백엔드 서버
+cache_peer 192.168.0.100 parent 80 no-query originserver	
+
+# 형제(sibling) Squid는 192.168.0.151에 있고, 포트 3130으로 송수신함
+cache_peer 192.168.0.151 sibling 80 3130                    
+
+# 모든 서버에서 접근가능 (LAN 내부이므로 접근제어를 하지 않음)
+http_access allow all						                
 			
-http_access allow all						                # 모든 서버에서 접근가능 (LAN 내부이므로 접근제어를 하지 않음)
-			
-cache_dir coss /var/squid/coss 8000 block-size=512 max-size=524288	# 캐시 스토리지는 coss를 이용
-refresh_pattern . 30 20% 3600                                       # 30분간 컨텐츠를 캐시 
-			
-client_persistent_connections off		# ┐
-                                        # │- KeepAlive에 의한 접속유지를 무효화
-server_persistent_connections off		# ┘
-	
-icp_query_timeout 2000			        # 형제와의 캐시 존재확인시 타임아웃을 2000ms로 설정
+# 캐시 스토리지는 coss를 이용
+cache_dir coss /var/squid/coss 8000 block-size=512 max-size=524288	
+
+# 30분간 컨텐츠를 캐시 
+refresh_pattern . 30 20% 3600                                       
+
+# KeepAlive에 의한 접속유지를 무효화
+client_persistent_connections off	
+server_persistent_connections off
+
+# 형제와의 캐시 존재확인시 타임아웃을 2000ms로 설정
+icp_query_timeout 2000			      
 ```
 
 ## ⓒ memcached
 + 동적 컨텐츠의 처리 속도를 높이는데 사용되는 분산 메모리 캐시서버
+
 + 서버의 메모리(in-memory)에 저장하는 방식으로, 데이터 반환 속도가 빠르다는 장점으로 서버의 성능을 향상하는 것이 목적인 캐시에 최적화 되어 있다.
+
 + NoSQL 데이터베이스로 key-value 쌍으로 활용해서 데이터를 저장한다.
