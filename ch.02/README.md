@@ -97,3 +97,46 @@
 >        - mod_ssl : AP 서버로부터의 응답을 SSL로 암호화할 수 있다. <br><br>
 >        - mod_dosdetector : DoS 공격 대책용 모듈 <br><br>
 >        - 이외에도 lighttpd 등, 써드파티 제품 모듈/플러그인을 내장할 수 있는 웹 서버가 몇 종류 있으며, 이를 리버스 프록시로 이용하면 유사한 이점을 얻을 수 있다. <br><br>
+
+
+
+## To-Do List
+
+- [x] Buy groceries
+- [ ] Clean the house
+- [ ] Wash the car
+- [x] Finish work project
+
+## Grocery List
+
+- Milk
+- Bread
+- Eggs
+- Cheese
+- Fruit (apples, bananas)
+
+## Steps to Clean the House
+
+1. Dust surfaces
+2. Vacuum floors
+3. Clean bathrooms
+    - [ ] Scrub shower
+    - [ ] Clean toilets
+    - [ ] Wipe down counters
+4. Sweep kitchen floor
+
+## Car Wash Supplies
+
+* Bucket
+* Sponge
+* Soap
+* Hose
+* Towel
+
+## Work Project Tasks
+
++ Research topic
++ Outline project plan
++ Write draft
++ Review and revise
++ Submit final version
