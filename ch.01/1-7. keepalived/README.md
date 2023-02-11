@@ -69,10 +69,10 @@
 
 ## ⓒ Keepalived 에서 제공하는 헬스체크
 
-+ TCP_CHECK : 비동기식으로 Time-Out TCP 요청을 통해 장애를 검출하는 방식 <br><br>
-+ HTTP_GET : HTTP GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
-+ SSL_GET : HTTPS GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
-+ MISC_CHECK : 특정 기능을 확인하는 스크립트를 실행하여 결과가 0인지 1인를 가지고 검출하는 방식
++ **TCP_CHECK :** 비동기식으로 Time-Out TCP 요청을 통해 장애를 검출하는 방식 <br><br>
++ **HTTP_GET :** HTTP GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
++ **SSL_GET :** HTTPS GET 요청을 보내서 서비스의 정상 동작을 확인 <br><br>
++ **MISC_CHECK :** 특정 기능을 확인하는 스크립트를 실행하여 결과가 0인지 1인를 가지고 검출하는 방식
 
 <br>
 
