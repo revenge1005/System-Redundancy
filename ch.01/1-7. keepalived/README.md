@@ -41,19 +41,20 @@
 
 > VRRP는 주로 Failover를 목적으로 Master/Backup 장비간의 전환을 위해 사용된다. Keepalived의 HA는 자신의 IP 주소와는 별개로 VIP를 설정해두고 문제가 생겼을때 이 VIP를 다른곳으로 인계하여 같은 IP주소를 통해서 서비스가 지속되도록 해주는것이 핵심인데 이 부분은 Keepalived가 VIP 할당 및 해제를 자동으로 해주기 때문에 별도의 설정을 하지 않아도 문제가 없다.
 
+<br>
+
 > VRRP는 게이트웨이 이중화 프로토콜(FHRP : First Hop Redundancy Protocol) 중 하나로 게이트웨이 장애 복구를 위한 프로토콜로 다른 프로토콜로는 HSRP, GLBP 등이 있다.
-+ **게이트웨이 이중화가 필요한 이유** <br><br>
++ **게이트웨이 이중화가 필요한 이유** 
     - [x] End Device는 라우팅 기능이 없어 동적 라우팅 프로토콜을 설정할 수 없으므로, 게이트웨이 장애 시 이를 인지할 수 없으며 외부 네트워크와 통신할 수 없게 된다. (단일 장애 지점)
 
 <br>
 
-> + **VRRP 동작 방식** <br><br>
->   - 이중화 그룹을 대표하는 가상의 인터페이스를 생성하고 게이트웨이 IP(VIP)를 할당 <br><br>
->   - 이중화 그룹에서 Master/Backup 장비를 결정하고 Master 장비는 라우팅 기능을 제공함과 동시에 VRRP Advertisement 패킷을 반복적으로 전송함으로써 Backup 장비에게 알림 <br><br>
->       - 이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지 <br><br>
->   - Master 장비에 장애가 발생해 Backup 장비에게 VRRP Advertisement 패킷을 수신하지 못하면, Backup 장비들은 서로 VRRP Advertisement 패킷과 GARP 패킷을 교환하여 우선 순위에 따라 새로운 Master 장비를 선정 <br><br>
->       - GARP는 자신의 IP에게 ARP 요청을 보내는 것으로 동일 서브넷 상에 존재하는 장비의 ARP Table을 갱신할 수 있다. <br><br>
->       - 여기서 Backup과 연결된 스위치나 라우터로 GARP 패킷을 통해 ARP Table을 갱신해 Backup 장비가 VIP를 소유하게 되었음을 알릴 수 있다.
++ **VRRP 동작 방식** 
+    - [x] 이중화 그룹을 대표하는 가상의 인터페이스를 생성하고 게이트웨이 IP(VIP)를 할당 <br><br>
+    - [x] 이중화 그룹에서 Master/Backup 장비를 결정하고 Master 장비는 라우팅 기능을 제공함과 동시에 VRRP Advertisement 패킷을 반복적으로 전송함으로써 Backup 장비에게 알림 (이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지함) <br><br>
+    - [x] Master 장비에 장애가 발생해 Backup 장비에게 VRRP Advertisement 패킷을 수신하지 못하면, Backup 장비들은 서로 VRRP Advertisement 패킷과 GARP 패킷을 교환하여 우선 순위에 따라 새로운 Master 장비를 선정 <br><br>
+       - GARP는 자신의 IP에게 ARP 요청을 보내는 것으로 동일 서브넷 상에 존재하는 장비의 ARP Table을 갱신할 수 있다. <br><br>
+       - 여기서 Backup과 연결된 스위치나 라우터로 GARP 패킷을 통해 ARP Table을 갱신해 Backup 장비가 VIP를 소유하게 되었음을 알릴 수 있다.
 
 <br>
 
