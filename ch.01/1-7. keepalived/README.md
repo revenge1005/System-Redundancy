@@ -44,12 +44,12 @@
 <br>
 
 > VRRP는 게이트웨이 이중화 프로토콜(FHRP : First Hop Redundancy Protocol) 중 하나로 게이트웨이 장애 복구를 위한 프로토콜로 다른 프로토콜로는 HSRP, GLBP 등이 있다.
-+ **게이트웨이 이중화가 필요한 이유** 
++ **게이트웨이 이중화가 필요한 이유** <br>
     - [x] End Device는 라우팅 기능이 없어 동적 라우팅 프로토콜을 설정할 수 없으므로, 게이트웨이 장애 시 이를 인지할 수 없으며 외부 네트워크와 통신할 수 없게 된다. (단일 장애 지점)
 
 <br>
 
-+ **VRRP 동작 방식** 
++ **VRRP 동작 방식** <br>
     - [x] 이중화 그룹을 대표하는 가상의 인터페이스를 생성하고 게이트웨이 IP(VIP)를 할당 <br><br>
     - [x] 이중화 그룹에서 Master/Backup 장비를 결정하고 Master 장비는 라우팅 기능을 제공함과 동시에 VRRP Advertisement 패킷을 반복적으로 전송함으로써 Backup 장비에게 알림 (이때 Backup 장비는 해당 패킷을 받는 중에는 MAster 장비가 살아있다고 판단하여 Standby 상태를 유지함) <br><br>
     - [x] Master 장비에 장애가 발생해 Backup 장비에게 VRRP Advertisement 패킷을 수신하지 못하면, Backup 장비들은 서로 VRRP Advertisement 패킷과 GARP 패킷을 교환하여 우선 순위에 따라 새로운 Master 장비를 선정 <br><br>
