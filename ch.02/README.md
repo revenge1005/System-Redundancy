@@ -127,27 +127,19 @@
 <br>
 
 #### 【 캐시를 적용하기 좋은 데이터 】
-> 서버에 데이터를 요청하면, 해당 서버가 응답을 반환할 때까지 페이지가 로드되지 않는다. 
-
-> 페이지 로딩에 필요한 정적 리소스를 캐싱하여 사용하게 되면, 요청을 보내는 네트워크 요청 횟수를 줄일 수 있을 뿐만 아니라 서버 응답을 기다려야 할 필요도 없기 때문에 사용자에게 보다 빠르게 화면을 보여줄 수 있다.
+> 서버에 데이터를 요청하면, 해당 서버가 응답을 반환할 때까지 페이지가 로드되지 않는다. 즉, 페이지 로딩에 필요한 정적 리소스를 캐싱하여 사용하게 되면, 요청을 보내는 네트워크 요청 횟수를 줄일 수 있을 뿐만 아니라 서버 응답을 기다려야 할 필요도 없기 때문에 사용자에게 보다 빠르게 화면을 보여줄 수 있다.
 
 - [x] 자주 참조되는 데이터<br><br>
 - [x] 자주 변경되지 않는 데이터<br><br>
-- [x] 동일한 입력에 대해 동일한 출력을 보장하는 데이터
-
-<br>
+- [x] 동일한 입력에 대해 동일한 출력을 보장하는 데이터 <br><br>
 
 #### 【 캐시 종류 】
 
 + **Private Cache**
-
     - [x] 웹 브라우저에 저장디는 캐시이며, 다른 사람이 접근할 수 없다. <br><br>
     - [x] 단, 서버 응답에 Autorization 헤더가 포함되어 있다면 Private Cache에 저장되지 않는다.<br><br>
-
 + **Shared Cache**
-
     - [x] Shared Cache는 웹 브라우저와 서버 사이에서 동작하는 캐시를 의미하며, 2가지로 나뉜다.<br><br>
-
         + **Prxoy Cache :** 포워드 프록시에서 동작하는 캐시 <br><br>
         + **Managed Cache :** CDN 서비스 그리고 리버스 프록시에서 동작하는 캐시
 
@@ -163,7 +155,7 @@
 
 ## ⓑ Squid 캐시서버
 + Squid는 HTTP, HTTPS, FTP 등에서 이용되는 오픈소스 캐시 프록시 서버
-+ Squid는 HTTP 프로토콜의 캐시기능을 전제로 한 캐시서버로, 따라서 HTML, CSS, Javascript,이미지 등의 정적인 컨텐츠를 캐싱할 때 사용된다.
++ Squid는 HTTP 프로토콜의 캐시기능을 전제로 한 캐시서버로, 따라서 HTML, CSS, Javascript 등의 정적인 컨텐츠를 캐싱할 때 사용된다.
 
 <br>
 
@@ -171,23 +163,23 @@
 > Squid를 리버스 프록시로 이용할 경우, 구성은 다양하지만 여기서는 아파치로 구축한 리버스 프록시와 벤엔드인 AP 서버 사이에 넣는 구성을 예를 들었다.
 ```
                     192.168.0.150
-				<-	[ Squid-1 ]     <-   
+                <-  [ Squid-1 ]   <-   
  [ AP 서버 ] 	                    		[ Apache ] (mod_proxy_balancer나 LVS로 두 대의 Squid로의 분배를 수행)
-192.168.0.100	<-	[ Squid-2 ]     <-	         
+192.168.0.100   <-  [ Squid-2 ]   <-	         
                     192.168.0.151
 ```
 ```
 http_port 80 	# Squid를 80번 포트에 바인드
 cache_peer 192.168.0.100 parent 80 no-query originserver	# 원본 서버는 백엔드 서버
-cache_peer 192.168.0.151 sibling 80 3130				    # 형제(sibling) Squid는 192.168.0.151에 있고 캐시 프로토콜은 포트 3130으로 송수신함
+cache_peer 192.168.0.151 sibling 80 3130                    # 형제(sibling) Squid는 192.168.0.151에 있고, 포트 3130으로 송수신함
 			
 http_access allow all						                # 모든 서버에서 접근가능 (LAN 내부이므로 접근제어를 하지 않음)
 			
 cache_dir coss /var/squid/coss 8000 block-size=512 max-size=524288	# 캐시 스토리지는 coss를 이용
-refresh_pattern . 30 20% 3600					                    # 30분간 컨텐츠를 캐시 
+refresh_pattern . 30 20% 3600                                       # 30분간 컨텐츠를 캐시 
 			
 client_persistent_connections off		# ┐
-        								# │- KeepAlive에 의한 접속유지를 무효화
+                                        # │- KeepAlive에 의한 접속유지를 무효화
 server_persistent_connections off		# ┘
 	
 icp_query_timeout 2000			        # 형제와의 캐시 존재확인시 타임아웃을 2000ms로 설정
