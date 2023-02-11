@@ -20,29 +20,26 @@
 
 <br>
 
-### ⓐ Keepalived
+## ⓐ Keepalived
 
-> 로드밸런싱과 고가용성(HA)을 제공하는 프레임워크
++ 로드밸런싱과 고가용성(HA)을 제공하는 프레임워크
 
-> Heartbeat 체크를 수행하다가 Master 노드에 장애가 발생하면 Slave 노드로 Failover(장애극복)하는 역할을 함
++ Heartbeat 체크를 수행하다가 Master 노드에 장애가 발생하면 Slave 노드로 Failover(장애극복)하는 역할을 함
 
-> 기본적으로는 L4 수준의 로드밸런싱을 지원하며, HAProxy와 함께 조합해서 사용하면 L7 로드밸런싱도 가능함
++ 기본적으로는 L4 수준의 로드밸런싱을 지원하며, HAProxy와 함께 조합해서 사용하면 L7 로드밸런싱도 가능함
 
-> VRRP을 사용한 고가용성(HA) 제공함
-
-<br>
-
-### ⓑ VRRP (Virtual Router Redundancy Protocol)
-
-> + 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.<br><br>
->   - **Load Balancing(부하분산) :** 트래픽을 분산시켜 네트워크의 성능향상을 목표로 함 <br><br>
->   - **고가용성(HA) :** 서비스를 중단 없이 지속적으로 제공하는 성질
++ VRRP을 사용한 고가용성(HA) 제공함
 
 <br>
+
+## ⓑ VRRP (Virtual Router Redundancy Protocol)
+
+> 다중화(or 이중화) 구성을 하는 이유는 크게 두 가지로 다음과 같다.
+
+- [x] **Load Balancing(부하분산) :** 트래픽을 분산시켜 네트워크의 성능향상을 목표로 함 <br><br>
+- [x] **고가용성(HA) :** 서비스를 중단 없이 지속적으로 제공하는 성질 <br><br>
 
 > VRRP는 주로 Failover를 목적으로 Master/Backup 장비간의 전환을 위해 사용된다. 
-
-<br>
 
 > Keepalived의 HA는 자신의 IP 주소와는 별개로 VIP를 설정해두고 문제가 생겼을때 이 VIP를 다른곳으로 인계하여 같은 IP주소를 통해서 서비스가 지속되도록 해주는것이 핵심인데 이 부분은 Keepalived가 VIP 할당 및 해제를 자동으로 해주기 때문에 별도의 설정을 하지 않아도 문제가 없다.
 
