@@ -556,6 +556,8 @@ virtual_server group MYSQL100 {
     server_id       102
     ```
 
+<br>
+
 ## ⓒ 내부 로드밸런서의 주의점 (DSR)
 
 <br>
