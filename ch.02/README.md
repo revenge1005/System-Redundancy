@@ -543,8 +543,6 @@ virtual_server group MYSQL100 {
     iptables -t nat - A PREROUTING -d 192.168.219.119 -j REDIRECT
     ```
 
-<BR>
-
 + 테스트
 
     ```
