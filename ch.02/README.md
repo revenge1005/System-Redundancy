@@ -66,8 +66,8 @@
 
 + **SSL Offloading(or Termination)**
 
-    - [x] **Proxy Server가 SSL을 전담해서 처리하고 Server에게 흘려보내는 기능** <br>
-    - [x] Proxy Server가 SSL 암호화를 해제하고 Server는 암호화가 해제된 데이터를 전달하는 것<br>
+    - [x] **Proxy Server가 SSL을 전담해서 처리하고 Server에게 흘려보내는 기능** <br><br>
+    - [x] Proxy Server가 SSL 암호화를 해제하고 Server는 암호화가 해제된 데이터를 전달하는 것<br><br>
     - [x] SSL Passthrough - 특별한 액션 없이 그대로 흘려보내는 기능 <br>
 
 + **압축**
