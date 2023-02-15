@@ -41,7 +41,7 @@
 
 + **암호화**
     
-    - [x] Client의 요청은 Forward Proxy를 통과할 때 암호화 되어 다른 서버를 통과할 떄 필요한 최소한의 정보만 갖게 되는데, 이는 Client의 IP를 숨길 수 있다
+    - [x] Client의 요청은 Forward Proxy를 통해 암호화되어 다른 서버를 통과할 때 필요한 최소한의 정보만 갖게 되는데, 이는 Client의 IP를 숨길 수 있다.
 
 <br>
 
