@@ -687,4 +687,4 @@ virtual_server group MYSQL100 {
 
 <br>
 
-+ [스토리지 서버의 다중화 - DRBD로 미러링 구성]()
++ [3-2. 스토리지 서버의 다중화 - DRBD로 미러링 구성]()
