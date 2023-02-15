@@ -628,11 +628,8 @@ virtual_server group MYSQL100 {
 <br>
 
 #### 【 스토리지 서버는 단일장애지점(SPOF, Single Point Of Failure)이 되기 쉽다. 】
-> Web Server가 스토리지 서버를 NFS 마운트해서 이용하는 경우라고 가정하고 내용을 진행한다.
 
-<br>
-
-+ man nfs의 내용
++ Web Server가 스토리지 서버를 NFS 마운트해서 이용하는 경우라고 가정하고 내용을 진행한다. man nfs의 내용은 다음과 같다.
 
     - [x] soft : NFS 파일 작업에서 주 타임아웃이 걸리면 호출한 프로그램에 I/O에러를 보고한다 **(기본값은 끊임없이 파일 작업을 재시도한다.)**
 
