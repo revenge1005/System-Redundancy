@@ -6,7 +6,7 @@
 
 2-3. [MySQL 리플리케이션](#2-3-mysql-리플리케이션)
 
-2-4. []
+2-4. [MySQL 슬레이브 활용](#2-4-mysql-슬레이브-활용)
 
 <br>
 
@@ -441,3 +441,128 @@ PURGE MASTER LOGS TO 'mysql-bin-000003'
 ```
 SHOW SLAVE STATUS\G;
 ```
+
+<br>
+
+---
+
+<br>
+
+# 2-4. MySQL 슬레이브 활용
+
+<br>
+
+## ⓐ 여러 슬레이브에 분산하는 방법
+
++ 애플리케이션으로 분산하기 (O/R Mapper를 통해 DB에 접근)
+
+    - [x] 슬레이브군의 호스트명 목록을 얻는다.
+
+    - [x] 분산할 슬레이브 서버를 결정하는 로직을 구현한다.
+    
+    - [x] 슬레이브의 헬스체크를 수행하고, 다운된 슬레이브에는 분산되지 않도록 하는 처리를 구현한다.
+
+<br>
+    
++ 내부 로드밸런서로 분산하기 (애플리케이션으로 분산하기와의 비교)
+
+    - [x] 애플리케이션은 슬레이브의 대수를 신경쓰지 않아도 된다.
+
+    - [x] 애플리케이션은 슬레이브의 상태를 신경쓰지 않아도 된다.
+    
+    - [x] 보다 균일한 분산을 할 수 있다.
+
+
+<br>
+
+## ⓑ 슬레이브 참조를 로드밸런서 경유로 수행하는 방법
+
+![내부 로드밸런서 경유 슬레이브 참조](https://user-images.githubusercontent.com/42735894/218947614-eb23a6c3-c9b0-4e43-a72e-644acdcdd2e6.PNG)
+
+```
+keepalived.conf
+
+# Basic Section
+vrrp_instance VI {
+    state               BACKUP
+    interface           eth0
+    garp_master_delay   5
+    virtual_router_id   230                 # (1)
+    priority            100
+    advert_int          1
+    authentication {
+        auth_type   PASS
+        auth_pass   himitsu
+    }
+    virtual_ipaddress {
+        192.168.219.230/24  dev eth0        # ┐
+        192.168.219.119/24  dev eth0        # ┘ (2)
+    }
+}
+
+# MySQL slave section
+virtual_server_group MYSQL100 {
+    192.168.219.119 3306
+}
+virtual_server group MYSQL100 {
+    delay_loop  3
+    lvs_sched   rr
+    lvs_method  DR                          # (3)
+    protocol    TCP
+
+    real_server 192.168.219.111 3306 {
+        weight  1
+        inhibit_on_failure
+        TCK_CHECK {
+            connect_port    3306
+            connect_timeout 3
+        }
+    }
+    real_server 192.168.219.112 3306 {
+        weight  1
+        inhibit_on_failure
+        TCK_CHECK {
+            connect_port    3306
+            connect_timeout 3
+        }
+    }
+}
+```
+
++ (1) VRID(VRRP 라우터 그룹 식별자)를 지정, VRRP에서는 VRID가 같은 노드의 그룹으로 가상 라우터를 구성한다 따라서 동일한 네트워크 세그먼트에서는 가상 라우터 그룹마다 다른 VRID를 붙여야 한다. 만일 외부 로드밸런서와 같이 이미 가상 라우터 그룹이 존재하고 있는 경우 중복되지 않도록 해야한다 (tcpdump 명령으로 VRRP 패킷, VRID를 볼 수 있음)
+
+<BR>
+
++ (2) 내부 로드밸런서 자신의 가상 라우터 주소(192.168.219.230), 가상 슬레이브(db100-s)용 주소(192.168.219.119)
+
+<BR>
+
++ (3) DSR 분산하도록 설정했으므로, 가상 슬레이브의 IP 주소별, 패킷을 받아들이도록 해야 한다. (슬레이브 각각(db101, db102)에 설정)
+
+    ```
+    iptables -t nat - A PREROUTING -d 192.168.219.119 -j REDIRECT
+    ```
+
+<BR>
+
++ 테스트
+
+    ```
+    $ check_lb_slave() {
+        echo 'SHOW VARIABLES LIKE "server_id"' | mysql -s -hdb100-s
+    }
+
+    $ check_lb_slave
+    server_id       101
+    $ check_lb_slave
+    server_id       102
+    ```
+
+## ⓒ 내부 로드밸런서의 주의점 (DSR)
+
++ 내부 로드밸런서의 주의사항은 **"분산방법은 NAT가 아닌 DSR로 하는 것"**이다.
+
+    - [x] NAT의 경우, Client가 VIP 목적지 주소로 요청을 보내면, 로드밸런서는 목적지 주소를 Real Server로의 주소로 수정해서 Real Server에 전송한다 응답할 때도 마찬가지로
+    로드밸런서를 경유하면 그 때 출발지 주소가 VIP로 변경되므로 문제가 일어나지 않는다.
+
+    - [x] 하지만 Real Server와 Client가 같은 네트워크에 존재할 때는, 로드밸런서를 도입할 필요없이 직접 클라이언트로 패킷이 전송되어, 결과적으로 VIP 앞으로 전송된 패킷의 응답이 VIP와는 다른 곳(Real Server의 주소)으로부터 반환되어 오는 것처럼 보이는 것이다.
