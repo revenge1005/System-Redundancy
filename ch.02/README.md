@@ -10,7 +10,7 @@
 
 2-5. [고속, 경량 스토리지 서버 선택](#2-5-고속-경량의-스토리지-서버-선택)
 
-번외. [아파치 모듈을 이용한 리버스 프록시]()
+번외. [아파치 모듈을 이용한 리버스 프록시](https://github.com/revenge1005/System-Redundancy/tree/master/ch.02/%5B%EB%B2%88%EC%99%B8%5D%20%EC%95%84%ED%8C%8C%EC%B9%98%20%EB%AA%A8%EB%93%88%EC%9D%84%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EB%A6%AC%EB%B2%84%EC%8A%A4%20%ED%94%84%EB%A1%9D%EC%8B%9C)
 
 <br>
 
