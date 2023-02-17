@@ -69,7 +69,7 @@
 ```
 <IfModule mpm_worker_module>
 		StartServers		2
-		MaxClients		    150
+		MaxClients          150
 		MinSpareThreads		25
 		MaxSpareThreads		75
 		ThreadsPerChild		25
