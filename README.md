@@ -51,7 +51,7 @@ AP서버(Application Server)
 <!-- REMOVE THE BACKSLASHES -->
 CDN(Content Delivery Network)
 </td>
-<td width="70%">
+<td width="80%">
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 컨텐츠를 전송하기 위한 네트워크 시스템으로 전송 성능향상과 가용성 향상을 목적으로하며, 전 세계에 존재하는 캐시 서버 중에 클라이언트에 보다 가까운 캐시 서버를 선택해서 전송함으로써 성능향상을 실현하는 것이 구성상 특징임
