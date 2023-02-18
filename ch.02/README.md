@@ -344,7 +344,7 @@ icp_query_timeout 2000
 
 ```
 [mysqld]
-서버-id       = 1             # (1) 
+server-id       = 1             # (1) 
 log-bin         = mysql-bin     # (2) 
 log-bin-index   = mysql-bin     # (3) 
 relay-log       = relay-bin     # (4)
@@ -569,13 +569,13 @@ virtual_server group MYSQL100 {
 
     ```
     $ check_lb_slave() {
-        echo 'SHOW VARIABLES LIKE "서버_id"' | mysql -s -hdb100-s
+        echo 'SHOW VARIABLES LIKE "server_id"' | mysql -s -hdb100-s
     }
 
     $ check_lb_slave
-    서버_id       101
+    server_id       101
     $ check_lb_slave
-    서버_id       102
+    server_id       102
     ```
 
 <br>
@@ -675,7 +675,7 @@ virtual_server group MYSQL100 {
 
 + WS 에서 사용하는 웹 서버는 동적 페이지를 생성 기능은 불필요하며 얼마나 고속으로 정적인 파일 전송할 수 있는지가 중요한데 이때 「lightppd, nginx 등의 경량 웹 서버」를 이용해 HTTP를 지원함으로 성능을 향상시킬 수 있다.
 
-+ 이허한 데이터는 거의가 스토리지 서버의 메모리에 캐싱되며, lightppd, nginx 등의 경량 웹 서버는 메모리에 캐싱되어 있는 데이터를 오로지 전송하기만 하면 되므로 스토리지 서버의 디스크 I/O에는 거의 부하가 걸리지 않는다 따라서 스토리지 서버가 병목이 될 가능성은 없다.
++ 이러한 데이터는 거의가 스토리지 서버의 메모리에 캐싱되며, lightppd, nginx 등의 경량 웹 서버는 메모리에 캐싱되어 있는 데이터를 오로지 전송하기만 하면 되므로 스토리지 서버의 디스크 I/O에는 거의 부하가 걸리지 않는다 따라서 스토리지 서버가 병목이 될 가능성은 없다.
 
 + NFS에 비하면 HTTP는 서버와 클라이언트의 결합이 느슨하다고 할 수 있다.
 
