@@ -206,7 +206,7 @@ resource {name} {
 
 + **resource :** 리소스를 정의하는 블록
 
-<br>    
+<br>
 
 + **protocol :** 데이터 전송 프로토콜 지정
     
