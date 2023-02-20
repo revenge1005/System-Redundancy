@@ -166,3 +166,140 @@
 <br>
 
 + DRBD의 미러링은 Active/Backup 구성이으로 Active 측의 블록 디바이스에 대해서는 읽고 쓰기가 가능하지만, Backup 측의 블록 디바이스에는 접근할 수 없다.
+
+<br>
+
+## ⓑ DRBD의 설정과 실행
+> 설정 파일은 /etc/drbd.d/ 에 넣으면 되며, /etc/drbd.conf 에서 /etc/drbd.d/ 하위의 설정파일을 불러 오는 방법을 쓴다.
+
+<br>
+
+#### 【 /etc/drbd.conf (Active/Backup) 】
+```
+# You can find an example in  /usr/share/doc/drbd.../drbd.conf.example
+include "drbd.d/global_common.conf";
+include "drbd.d/*.res";
+```
+
+<br>
+
+#### 【 /etc/drbd.d/{name}.res (Active/Backup) 】
+```
+resource {name} {
+    protocol { A | B | C };
+
+    on {primary-hostname} {
+        device      /dev/drbd0;
+        disk        /dev/sdb1;
+        address     192.168.0.201:7789;
+        meta-disk   internal;
+    }
+    
+    on {secondary-hostname} {
+        device      /dev/drbd0;
+        disk        /dev/sdb1;
+        address     192.168.0.202:7789;
+        meta-disk   internal;
+    }
+}
+```
+
++ **resource :** 리소스를 정의하는 블록
+
+<br>    
+
++ **protocol :** 데이터 전송 프로토콜 지정
+    
+    - [v] **A :** 로컬 디스크에 쓰기가 끝나고 TCP 버퍼에 데이터를 송신한 시점에서 쓰기작업 완료 (성능을 중시하는 비동기 전송)
+        
+    - [v] **B :** 로컬 디스크에 쓰기가 끝나고 원격 호스트로 데이터가 도달한 시점에서 쓰기작업 완료 (A와 C의 중간)
+        
+    - [v] **C :** 원격 호스트의 디스크에도 쓰기가 완료된 시점에서 쓰기작업 완료 (신뢰성을 중시하는 동기화 전송)
+
+<br>    
+
++ **on :** 호스트마다 리소스를 정의하는 블록
+
+<br>    
+
++ **device :** DRBD의 논리 블록 디바이스를 지정
+
+<br>    
+
++ **disk :** 미러링하고자 하는 물리 디바이스를 지정
+
+<br>    
+
++ **address :** 데이터를 동기화하기 위해 수신 대기할 IP주소와 포트번호를 지정
+
+<br>    
+
++ **meta-disk :** 메타 데이터를 저장할 디바이스를 지정
+    
+    - [v] **internal :** disk에서 지정한 블록 디바이스 중 일부를 메타 데이터용으로 확보
+
+<br>
+
+#### 【 DRBD 실행 (Active/Backup) 】
+```
+service drbd start
+```
+
+<br>
+
+#### 【 DRBD Primary 만들기 (Active) 】
+> DRBD 가 처음실행되면 secondary/secondary로 동작하며, 이를 primary/secondary로 만들어 mirroring이 진행될 수 있게 해야한다.
+
+<br>
+
+```
+drbdadm primary {resource_name}
+```
+
+<br>
+
+#### 【 DRBD 모니터링 】
+```
+$ cat /proc/drbd
+version: 8.4.3 (api:1/proto:86-101)
+srcversion: 88927CDF07AEA4F7F2580B2 
+ 0: cs:Connected ro:Primary/Secondary ds:UpToDate/UpToDate C r-----
+    ns:0 nr:43 dw:43 dr:1456 al:0 bm:2 lo:0 pe:0 ua:0 ap:0 ep:1 wo:f oos:0
+
+
+$ drbdadm role {resource_name}
+Primary/Secondary
+
+
+$ service drbd status
+drbd driver loaded OK; device status:
+version: 8.4.3 (api:1/proto:86-101)
+srcversion: 88927CDF07AEA4F7F2580B2 
+m:res  cs         ro                 ds                 p  mounted   fstype
+0:r0   Connected  Primary/Secondary  UpToDate/UpToDate  C  /tmp/mnt  ext3 
+```
+
+<br>
+
+#### 【 secondary를 primary 전환 】
+```
+# 1. primary의 문제 확인 (Unknow)
+
+drbd-2$ cat /proc/drbd
+version: 8.4.3 (api:1/proto:86-101)
+srcversion: 88927CDF07AEA4F7F2580B2 
+ 0: cs:WFConnection ro:Secondary/Unknown ds:UpToDate/DUnknown C r-----
+    ns:0 nr:43 dw:43 dr:1456 al:0 bm:2 lo:0 pe:0 ua:0 ap:0 ep:1 wo:f oos:0
+
+drbd-2$ service drbd status
+drbd driver loaded OK; device status:
+version: 8.4.3 (api:1/proto:86-101)
+srcversion: 88927CDF07AEA4F7F2580B2 
+m:res  cs            ro                 ds                 p  mounted  fstype
+0:r0   WFConnection  Secondary/Unknown  UpToDate/DUnknown  C
+
+
+# 2. secondary를 primary 전환
+
+drbd-2$ drbdadm primary {resource_name}
+```
