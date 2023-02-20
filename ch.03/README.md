@@ -54,11 +54,12 @@
 <br>
 
 #### 【 VRRP를 이용한 구성 】
+
 <br>
 
-<center>
+<p align="center">
 <img src="https://user-images.githubusercontent.com/42735894/220076539-ff8cc4a9-e13a-4025-a952-b8efce336877.PNG" width="500" height="381"/>
-</center>
+<p>
 
 <br>
 
