@@ -86,7 +86,7 @@
 <br>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/42735894/220081544-23a3d9e6-0762-43b8-8407-c8bd13fa5c7c.PNG" width="600" height="332"/>
+<img src="https://user-images.githubusercontent.com/42735894/220081544-23a3d9e6-0762-43b8-8407-c8bd13fa5c7c.PNG" width="700" height="388"/>
 <p>
 
 <br>
