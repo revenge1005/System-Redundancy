@@ -63,7 +63,7 @@
 
 <br>
 
-+ 이 상태에서는 Active서버의 keepalived가 정지하면 장애극복하지만, DNS서비스가 정지하더라도 장애극복하지 않는다.<br><br>
++ **이 상태에서는 Active서버의 keepalived가 정지하면 장애극복하지만, DNS서비스가 정지하더라도 장애극복하지 않는다**.<br><br>
 
 + 그러므로 헬스체크 스크립트를 실행해야하며, 아래 스크립트는 5초마다 dig명령을 사용해서 자기 자신에게 DNS질의를 해서 dig명령이 비정상 종료하면 keepalived를 정지시킨다.
 
@@ -78,3 +78,44 @@
         sleep 5
     done
     ``` 
+
+<br>
+
+#### 【 DNS서버의 부하분산 】
+
+<br>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42735894/220081544-23a3d9e6-0762-43b8-8407-c8bd13fa5c7c.PNG" width="500" height="277"/>
+<p>
+
+<br>
+
++ 로드밸런서는 리눅스에서 IPVS, keepalived를 사용해서 구축하고, 이 구성의 keepalived.conf 설정음 다음과 같다.
+    ```
+    virtual_server_group DNS {
+        192.168.0.200 53
+    }
+    virtual_server group DNS {
+        delay_loop 5
+        lvs_sched rr
+        lvs_method DR
+        protocol UDP
+        real_server 192.168.0.201 53 {
+            weight 1
+            MISC_CHECK {
+                misc_path "/usr/bin/dig +time=001 +tries=3 @192.168.0.201 localhost.localnet"
+                misc_timeout 5
+            }
+        }
+        real_server 192.168.0.202 53 {
+            weight 1
+            MISC_CHECK {
+                misc_path "/usr/bin/dig +time=001 +tries=3 @192.168.0.202 localhost.localnet"
+                misc_timeout 5
+            }
+        }
+    }
+    ```
+
+    - [x] keepalived에서는 DNS 헬스체크 기능이 지원되지 않으므로 MISC_CHECK를 사용해서 dig 명령을 실행해서 헬스체크하도록 한다.
