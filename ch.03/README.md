@@ -139,7 +139,9 @@
 
 <br>
 
+<p align="center">
 <img src="https://user-images.githubusercontent.com/42735894/220126701-64cf3d7c-3d75-417b-9888-8256de5dc046.PNG" width="700" height="337"/>
+<p>
 
 <br>
 
