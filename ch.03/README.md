@@ -439,3 +439,27 @@ notify_fault
 </td>
 </tr>
 </table>
+
+<br>
+
+#### 【 keepalived를 daemontools 제어하기 】
+> **keepalived가 종료할 때에는 notify_master/notify_backup의 스크립트는 실행되지 않는데** 이로 인해 마스터 서버의 keepalived가 정지하면 **마스터 서버의 DRBD가 primary 상태인 채로 장애극복하게 되므로, 백업 서버의 drbd-master는 에러가 발생한다.** <br><br>
+이 문제를 해결하기 위해 Process supervision을 이용하는데 Process supervision는 서비스를 관리하는 도구로, 서비스를 감시하여 서비스를 시작하고 만약 죽으면 재시작 시킨다. <br><br> 
+여기서는 daemontools를 사용하며, 비슷한 도구는 해당 내용 참고 - https://en.wikipedia.org/wiki/Process_supervision#Implementations
+
+```
+#!/bin/sh
+[ -f /var/run/vrrp.pid ] && exit
+exec 2>&1
+trap 'kill -TERM $PID' TERM
+trap 'kill -HUP $PID' HUP
+trap 'kill -INT $PID' INT
+/usr/local/sbin/keepalived -n -S 1 --vrrp &
+PID=$!
+wait $PID
+/usr/local/sbin/drbd-backup
+```
+
++ keepalived의 종료를 wait로 계속 대기하고 wait에 빠져나가면 drbd-backup 스크립트를 실행하도록 되어 있다.
+
++ 
