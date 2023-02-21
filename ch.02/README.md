@@ -689,4 +689,4 @@ virtual_server group MYSQL100 {
 
 <br>
 
-+ [3-2. 스토리지 서버의 다중화 - DRBD로 미러링 구성]()
++ [3-2. 스토리지 서버의 다중화 - DRBD로 미러링 구성](https://github.com/revenge1005/System-Redundancy/tree/master/ch.03#3-2-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EC%84%9C%EB%B2%84%EC%9D%98-%EB%8B%A4%EC%A4%91%ED%99%94-%EB%AF%B8%EB%9F%AC%EB%A7%81-%EA%B5%AC%EC%84%B1)

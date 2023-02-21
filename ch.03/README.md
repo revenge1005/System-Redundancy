@@ -305,3 +305,139 @@ m:res  cs            ro                 ds                 p  mounted  fstype
 
 drbd-2$ drbdadm primary {resource_name}
 ```
+
+<br>
+
+## ⓒ DRBD 장애극복
+> **DRBD는 마스터 서버에 문제가 발생하더라도 백업 서버가 자동적으로 마스터 서버가 되지는 않는다.** 따라서 keepalived를 이용해서 장애극복할 수 있도록 한다.
+
+<br>
+
+#### 【 DRBD의 장애극복 】
+
+<br>
+
++ 장애극복하기 위해서는 마스터 서버의 DRBD를 secondary 상태로 하고 블록 디바이스가 마운트되어 있으면 실패하므로 NFS 서버를 정지해서 언마운트해둔다.
+
+    ```
+    cat <<EOF > /usr/local/sbin/drbd-backup
+    /etc/init.d/nfs-kernel-server stop
+    umount /mnt/drbd0
+    drbdadm secondary all
+    EOF
+    ```
+
+<br>
+
++ 백업 서버를 마스터로 할 경우 DRBD를 primary 상태로 하고 블록 디바이스를 마운트해서 NFS서버를 실행한다.
+
+    ```
+    cat <<EOF > /usr/local/sbin/drbd-master
+    drbdadm primary all
+    mount /dev/drbd0 /mnt/drbd0 
+    /etc/init.d/nfs-kernel-server stop
+    EOF
+    ```
+
+<br>
+
+#### 【 DRBD - keepalived 설정 】
+> VIP로 192.168.0.200으로, NFS 클라이언트는 192.168.0.200:/mnt/drbd0/을 NFS 마운트하고 있으며 서버가 장애극복해도 NFS 클라이언트느 다시 마운트할 필요가 없다.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42735894/220269449-062f9bb6-873d-47c2-967c-68c1ea9cdacf.PNG" width="700" height="382"/>
+<p>
+
+```
+vrrp_instance DRBD {
+    state BACKUP
+    interface eth0
+    garp_master_delay 5
+    virtual_router_id 200
+    priority 100
+    nopreempt
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1234
+    }
+    virtaul_ipaddress {
+        192.168.0.200/24 dev eth0
+    }
+    notify_master "/usr/local/sbin/drbd-master"
+    notify_backup "/usr/local/sbin/drbd-backup"
+    notify_fault "/usr/local/sbin/drbd-backup"
+}
+```
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+항목 
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+설명
+</small>
+</p>
+</th>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+nopreempt
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+VRRP의 Preemptive mode를 무효화 설정, Preemptive 모드는 기존 마스터보다도 높은 우선순위를 갖는 노드가 기동하면 장애극복이 일어나는데 Preemptive 모드를 무효화하면 이미 마스터 노드가 가동 중일 경우 자신의 우선순위가 높더라도 장애극복을 하지 않는다. (즉, 불필요한 장애극복을 피하기 위해 설정함)
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+notify_master
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+VRRP가 마스터 상태가 됐을 때 실행하고자 하는 명령을 지정
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+notify_backup
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+VRRP가 백업 상태가 됐을 때 실행하고자 하는 명령을 지정
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+notify_fault
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+네트워크 인터페이스가 링크 다운되었을 때 실행하고자 하는 명령을 지정
+<br>
+<br>
+</td>
+</tr>
+</table>
