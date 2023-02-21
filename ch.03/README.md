@@ -442,24 +442,32 @@ notify_fault
 
 <br>
 
-#### 【 keepalived를 daemontools 제어하기 】
+#### 【 keepalived가 종료할 때 】
 > **keepalived가 종료할 때에는 notify_master/notify_backup의 스크립트는 실행되지 않는데** 이로 인해 마스터 서버의 keepalived가 정지하면 **마스터 서버의 DRBD가 primary 상태인 채로 장애극복하게 되므로, 백업 서버의 drbd-master는 에러가 발생한다.** <br><br>
-이 문제를 해결하기 위해 Process supervision을 이용하는데 Process supervision는 서비스를 관리하는 도구로, 서비스를 감시하여 서비스를 시작하고 만약 죽으면 재시작 시킨다. <br><br> 
-여기서는 daemontools를 사용하며, 비슷한 도구는 해당 내용 참고 - https://en.wikipedia.org/wiki/Process_supervision#Implementations
+이 문제를 해결하기 위해 daemontools 등의 툴을 이용하는데 supervise는 서비스를 관리하는 도구로, 서비스를 감시하여 서비스를 시작하고 만약 죽으면 재시작 시킨다. <br><br> 
+Process supervision 관련 도구는 해당 내용 참고 - https://en.wikipedia.org/wiki/Process_supervision#Implementations
 
-```
-#!/bin/sh
-[ -f /var/run/vrrp.pid ] && exit
-exec 2>&1
-trap 'kill -TERM $PID' TERM
-trap 'kill -HUP $PID' HUP
-trap 'kill -INT $PID' INT
-/usr/local/sbin/keepalived -n -S 1 --vrrp &
-PID=$!
-wait $PID
-/usr/local/sbin/drbd-backup
-```
+<br>
 
-+ keepalived의 종료를 wait로 계속 대기하고 wait에 빠져나가면 drbd-backup 스크립트를 실행하도록 되어 있다.
+## ⓓ NFS서버를 장애극복할 때 주의점
+> DRBD에서 미러링할 디바이스를 NFS로 공유하기 위해서는 마스터 서버에서 NFS 서버를 실행해야 한다.<br><br>
+**장애극복으로 새롭게 마스터가 된 NFS서버는 아무 클라이언트에서도 마운트되어 있지 않다 그러나 NFS 클라이언트는 서버가 전환되었음을 알지 못하므로, 이미 마운트되었다고 보고 파일에 접근한다.**<br><br>
+그 결과, **NFS서버에서는 "마운트되지 않은 클라이언트로부터 파일 접근 요청이 왔다"고 판단해서 접근을 거부하게 되는데 이를 해결하려면 다음과 같은 방법을 사용한다.**
 
-+ 
+<br>
+
+1. **/var/lib/nfs/를 동기화한다**
+
+    - [x] NFS 서버의 접속 정보는 /var/lib/nfs/ 하위에 저장되는데, DRBD로 이 볼륨을 미러링함으로써 장애극복을 해도 접속정보를 인계할 수 있다.
+
+    - [x] 다만, 배포판에 따라서는 NFS 서버의 실행 스크립트 내에 exportfs 명령으로 접속정보를 초기화하는 경우가 있으며 이런 경우 접속 정보를 초기화하지 않는 실행 스크립트를 별도로 작성해서 장애극복할 때는 해당 스크립트로 NFS서버를 실행하도록 하는 방법이 필요하다.
+
+<br>
+
+2. **nfsd 파일시스템을 이용**
+
+    - [x] nfsd 파일시스템은 NFS서버를 다중화하기 위해 만들어진 리눅스 고유의 기능이다.
+
+    - [x] 『mount -t nfsd nfsd /proc/fs/nfsd』를 한 상태로 실행된 NFS서버는 /var/lib/nfs/ 디렉토리를 이용하지 않게 된다.
+
+    - [x] 게다가 생면부지의 NFS클라이언트로부터 접속 요청이 있을 경우라도 이미 마운트되어 있는 듯이 처리할 수 있다.
