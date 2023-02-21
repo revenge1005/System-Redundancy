@@ -344,9 +344,7 @@ drbd-2$ drbdadm primary {resource_name}
 #### 【 DRBD - keepalived 설정 】
 > VIP로 192.168.0.200으로, NFS 클라이언트는 192.168.0.200:/mnt/drbd0/을 NFS 마운트하고 있으며 서버가 장애극복해도 NFS 클라이언트느 다시 마운트할 필요가 없다.
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/42735894/220269449-062f9bb6-873d-47c2-967c-68c1ea9cdacf.PNG" width="700" height="382"/>
-<p>
+![88787](https://user-images.githubusercontent.com/42735894/220269449-062f9bb6-873d-47c2-967c-68c1ea9cdacf.PNG)
 
 ```
 vrrp_instance DRBD {
