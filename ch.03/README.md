@@ -556,7 +556,7 @@ balance-rr
 <!-- REMOVE THE BACKSLASHES -->
 active-backup
 </td>
-<td width="90%">
+<td width="80%">
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 첫 번째 물리 NIC가 사용가능한 동안에는 그 NIC만 사용한다. 해당 NIC가 고장 나면 다음 NIC를 사용한다.
