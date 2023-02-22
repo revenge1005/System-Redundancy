@@ -519,6 +519,8 @@ Process supervision 관련 도구는 해당 내용 참고 - https://en.wikipedia
 
 + Bonding 드라이버가 여러 개 존재하는 물리 NIC 중에서 통신에 사용할 것을 선택하는 방법은 다음과 같다.
 
+<br>
+
 <table>
 <tr>
 <th align="center">
@@ -543,9 +545,7 @@ Process supervision 관련 도구는 해당 내용 참고 - https://en.wikipedia
 <!-- REMOVE THE BACKSLASHES -->
 balance-rr 
 </td>
-<td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 송신할 패킷마다 사용할 물리 NIC를 전환한다.
 <br>
 <br>
@@ -558,10 +558,7 @@ active-backup
 </td>
 <td width="80%">
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 첫 번째 물리 NIC가 사용가능한 동안에는 그 NIC만 사용한다. 해당 NIC가 고장 나면 다음 NIC를 사용한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
@@ -571,10 +568,7 @@ balance-xor
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 송신처와 목적지 MAC주소를 XOR해서 사용할 물리 NIC를 결정한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
@@ -584,10 +578,7 @@ broadcast
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 송신 패킷을 복사해서 모든 물리 NIC에 대해 동일한 패킷이 전송한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
@@ -597,10 +588,7 @@ broadcast
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 IEEE 802.3ad 프로토콜을 사용해서 스위치와의 사이에서 동적으로 aggregation을 작성한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
@@ -610,10 +598,7 @@ balance-tlb
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 물리 NIC 중에 가장 부하가 낮은 물리 NIC를 선택해서 송신하단 수신은 특정 물리 NIC를 사용해 수신한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
@@ -623,10 +608,7 @@ balancer-alb
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
-<br>
 송수신 모두 부하가 낮은 물리 NIC를 사용한다.
-<br>
-<br>
 </td>
 </tr>
 </table>
