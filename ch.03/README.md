@@ -556,7 +556,7 @@ balance-rr
 <!-- REMOVE THE BACKSLASHES -->
 active-backup
 </td>
-<td width="80%">
+<td width="90%">
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 첫 번째 물리 NIC가 사용가능한 동안에는 그 NIC만 사용한다. 해당 NIC가 고장 나면 다음 NIC를 사용한다.
@@ -569,7 +569,7 @@ active-backup
 <!-- REMOVE THE BACKSLASHES -->
 balance-xor
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 송신처와 목적지 MAC주소를 XOR해서 사용할 물리 NIC를 결정한다.
@@ -582,7 +582,7 @@ balance-xor
 <!-- REMOVE THE BACKSLASHES -->
 broadcast
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 송신 패킷을 복사해서 모든 물리 NIC에 대해 동일한 패킷이 전송한다.
@@ -595,7 +595,7 @@ broadcast
 <!-- REMOVE THE BACKSLASHES -->
 802.3ad
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 IEEE 802.3ad 프로토콜을 사용해서 스위치와의 사이에서 동적으로 aggregation을 작성한다.
@@ -608,7 +608,7 @@ IEEE 802.3ad 프로토콜을 사용해서 스위치와의 사이에서 동적으
 <!-- REMOVE THE BACKSLASHES -->
 balance-tlb
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 물리 NIC 중에 가장 부하가 낮은 물리 NIC를 선택해서 송신하단 수신은 특정 물리 NIC를 사용해 수신한다.
@@ -621,7 +621,7 @@ balance-tlb
 <!-- REMOVE THE BACKSLASHES -->
 balancer-alb
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 송수신 모두 부하가 낮은 물리 NIC를 사용한다.
