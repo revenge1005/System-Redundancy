@@ -6,6 +6,11 @@
 
 3. [DNS 서버의 다중화, 스토리지 서버의 다중화, 네트워크의 다중화, VLAN 도입](https://github.com/revenge1005/System-Redundancy/tree/master/ch.03)
 
+99. [용어 정리](#용어-정리)
+
+99. [참고](#참고)
+ 
+
 <br>
 
 ---
@@ -421,3 +426,85 @@ Active 노드가 정지한 후 장애극복된 상태에서 원래의 정상상�
 </td>
 </tr>
 </table>
+
+<br>
+
+---
+
+<br>
+
+# 참고 
+
++ 서버/인프라를 지탱하는 기술 (책)
+
++ [ARP Flux 문제](https://www.joinc.co.kr/w/Site/System_management/GNS3Layer2)
+
++ [LVS 설정](https://www.oss.kr/storage/app/public/oss/13/66/021_[LVS]%20Solution%20Guide%20V0.4_20181204.pdf)
+
++ [keepalived 메뉴얼](https://keepalived.readthedocs.io/en/latest/)
+
++ [VRRP](https://limvo.tistory.com/13)
+
++ [리버스 프록시 장점(1)](https://narup.tistory.com/238)
+
++ [리버스 프록시 장점(2)](https://forteleaf.tistory.com/entry/Reverse-Proxy-%EC%99%80-Load-Balencer)
+
++ [프록시 종류와 장점](https://velog.io/@dev_leewoooo/Forward-Proxy-Reverse-Proxy%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC)
+
++ [SSL Passthrough](https://m.blog.naver.com/wideeyed/222070860143)
+
++ [SSL Termination](https://www.haproxy.com/blog/haproxy-ssl-termination/)
+
++ [HAProxy 메뉴얼](https://docs.haproxy.org/2.7/configuration.html)
+
++ [웹 캐시 종류](https://hudi.blog/http-cache/)
+
++ 캐시 서버 관련
+
+    - [x] https://ko.linux-console.net/?p=672#gsc.tab=0
+
+    - [x] https://luran.me/359
+
+    - [x] https://brownbears.tistory.com/43
+    
+    - [x] https://haeunyah.tistory.com/80
+
+    - [x] https://inpa.tistory.com/entry/DB-%F0%9F%93%9A-NoSQL-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
+
+    - [x] https://www.flexera.com/blog/cloud/2012/10/architecting-scalable-applications-in-the-cloud-the-caching-tier/
+
++ Apache MPM
+
+    - [x] https://httpd.apache.org/docs/2.4/ko/mod/
+
+    - [x] https://sailing-blog.com/6035
+
+    - [x] https://jang8584.tistory.com/254
+
+    - [x] https://junghyungil.tistory.com/118
+
+    - [x] https://kchanguk.tistory.com/185
+
+    - [x] https://meryer.tistory.com/m/1
+
+    - [x] https://blogger.pe.kr/921
+
++ Apache Module mod_rewrite
+
+    - [x] https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html
+
+    - [x] https://snoop-study.tistory.com/10
+
+    - [x] https://zetawiki.com/wiki/%EC%95%84%ED%8C%8C%EC%B9%98_mod_rewrite_RewriteRule_%ED%94%8C%EB%9E%98%EA%B7%B8
+
+    - [x] https://co-no.tistory.com/63
+
+    - [x] https://blog.munilive.com/posts/how-to-use-htaccess-rewrite-rule.html
+
++ Bonding 설정
+
+    - [x] https://blog.naver.com/onevibe12/221717035000
+    
+    - [x] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding
+    
+    - [x] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/configuring-network-bonding_configuring-and-managing-networking
