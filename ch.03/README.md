@@ -545,6 +545,7 @@ Process supervision 관련 도구는 해당 내용 참고 - https://en.wikipedia
 <!-- REMOVE THE BACKSLASHES -->
 balance-rr 
 </td>
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 송신할 패킷마다 사용할 물리 NIC를 전환한다.
 </td>
