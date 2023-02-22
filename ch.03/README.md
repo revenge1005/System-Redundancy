@@ -417,7 +417,7 @@ VRRP가 마스터 상태가 됐을 때 실행하고자 하는 명령을 지정
 <!-- REMOVE THE BACKSLASHES -->
 notify_backup
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 VRRP가 백업 상태가 됐을 때 실행하고자 하는 명령을 지정
@@ -430,7 +430,7 @@ VRRP가 백업 상태가 됐을 때 실행하고자 하는 명령을 지정
 <!-- REMOVE THE BACKSLASHES -->
 notify_fault
 </td>
-<td width="80%">
+<td>
 <!-- REMOVE THE BACKSLASHES -->
 <br>
 네트워크 인터페이스가 링크 다운되었을 때 실행하고자 하는 명령을 지정
