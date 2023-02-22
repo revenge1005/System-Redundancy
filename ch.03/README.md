@@ -471,3 +471,162 @@ Process supervision 관련 도구는 해당 내용 참고 - https://en.wikipedia
     - [x] 『mount -t nfsd nfsd /proc/fs/nfsd』를 한 상태로 실행된 NFS서버는 /var/lib/nfs/ 디렉토리를 이용하지 않게 된다.
 
     - [x] 게다가 생면부지의 NFS클라이언트로부터 접속 요청이 있을 경우라도 이미 마운트되어 있는 듯이 처리할 수 있다.
+    
+<br>
+
+---
+
+<br>
+
+# 3-3. L1, L2 네트워크의 다중화
+
+<br>
+
+## ⓐ 장애발생 포인트
+
+1. **LAN 케이블**
+
+2. **NIC**
+
+3. **네트워크 스위치의 포트**
+
+4. **네트워크 스위치**
+
++ **1~3 :** **서버와 스위치 간 접속에 장애가 발생할 수 있다 이를 이것을 『링크 장애』**, 
+
++ **1,3 :** **스위치끼리 연결하는 스위치 간 접속에 고장은 발생할 수 있다 이를 『스위치 간 접속 장애』**
+
++ **4 :** **네트워크 스위치의 고장은 "스위치 장애**
+
+<br>
+
+## ⓑ 링크 다중화와 Bonding 드라이브
+
+<br>
+
+#### 【 링크 다중화 】
+> 링크 장애를 회피하기 위해서는 서버에 NIC를 여러 개 준비하고 LAN 케이블도 같은 수만큼 연결한다.<br><br>
+**그러나 여러 NIC를 이용해 통신하기 위해서는 각각의 NIC에 대해 각기 다른 IP주소를 할당해야하고, 네트워크에 접속된 각 머신은 통신할 때마다 통신 상대의 어떤 NIC가 사용되는지를 진단해서 그 결과에 따라 송신할 주소를 전환해야 한다.**
+
+<br>
+
+#### 【 Bonding 】
+> 여러 물리적인 네트워크 인터페이스를 하나의 논리적인 네트워크 인터페이스로 결합하여 네트워크 인터페이스를 만드는 데 사용되는 기술
+
+<br>
+
++ 논리 NIC를 통한 통신은 Bonding 드라이버의 설정에 따라 하위의 물리 NIC에 할당된다 또한 하위의 물리 NIC에 장애여부를 체크해서 장애가 있으면 해당 물리 NIC는 사용하지 않도록 한다.
+
++ Bonding 드라이버가 여러 개 존재하는 물리 NIC 중에서 통신에 사용할 것을 선택하는 방법은 다음과 같다.
+
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+항목 
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+설명
+</small>
+</p>
+</th>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+balance-rr 
+</td>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+송신할 패킷마다 사용할 물리 NIC를 전환한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+active-backup
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+첫 번째 물리 NIC가 사용가능한 동안에는 그 NIC만 사용한다. 해당 NIC가 고장 나면 다음 NIC를 사용한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+balance-xor
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+송신처와 목적지 MAC주소를 XOR해서 사용할 물리 NIC를 결정한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+broadcast
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+송신 패킷을 복사해서 모든 물리 NIC에 대해 동일한 패킷이 전송한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+802.3ad
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+IEEE 802.3ad 프로토콜을 사용해서 스위치와의 사이에서 동적으로 aggregation을 작성한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+balance-tlb
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+물리 NIC 중에 가장 부하가 낮은 물리 NIC를 선택해서 송신하단 수신은 특정 물리 NIC를 사용해 수신한다.
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<!-- REMOVE THE BACKSLASHES -->
+balancer-alb
+</td>
+<td width="80%">
+<!-- REMOVE THE BACKSLASHES -->
+<br>
+송수신 모두 부하가 낮은 물리 NIC를 사용한다.
+<br>
+<br>
+</td>
+</tr>
+</table>
