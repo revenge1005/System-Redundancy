@@ -547,8 +547,6 @@ balance-rr
 </td>
 <!-- REMOVE THE BACKSLASHES -->
 송신할 패킷마다 사용할 물리 NIC를 전환한다.
-<br>
-<br>
 </td>
 </tr>
 <tr>
