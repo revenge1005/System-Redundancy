@@ -508,3 +508,9 @@ Active 노드가 정지한 후 장애극복된 상태에서 원래의 정상상�
     - [x] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding
     
     - [x] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/configuring-network-bonding_configuring-and-managing-networking
+
++ STP 
+
+    - [x] https://peemangit.tistory.com/25
+
+    - [x] https://aws-hyoh.tistory.com/entry/Spanning-Tree-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B02
